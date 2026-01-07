@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Content.Server.Consent;
+using Content.Server._Common.Consent;
 using Content.Server.Preferences.Managers;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
@@ -56,7 +56,6 @@ public sealed class UserDbDataManager : IPostInjectInit
         {
             onDisconnect(session);
         }
-        _consent.OnClientDisconnected(session);
     }
 
     private async Task Load(ICommonSession session, CancellationToken cancel)

@@ -1,5 +1,5 @@
 using Content.Client._Floof.Language;
-using Content.Client.Consent.UI;
+using Content.Client._Common.Consent.UI;
 using Content.Client.UserInterface.Systems.Actions;
 using Content.Client.UserInterface.Systems.Admin;
 using Content.Client.UserInterface.Systems.Bwoink;
