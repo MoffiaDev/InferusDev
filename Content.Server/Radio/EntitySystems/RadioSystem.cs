@@ -4,6 +4,7 @@ using Content.Server.Chat.Systems;
 using Content.Server.Ghost;
 using Content.Server.Power.Components;
 using Content.Shared._DV.Chat;
+using Content.Shared._Floof.Language;
 using Content.Shared.Chat;
 using Content.Shared.Database;
 using Content.Shared.Radio;
@@ -22,7 +23,7 @@ namespace Content.Server.Radio.EntitySystems;
 /// <summary>
 ///     This system handles intrinsic radios and the general process of converting radio messages into chat messages.
 /// </summary>
-public sealed class RadioSystem : EntitySystem
+public sealed partial class RadioSystem : EntitySystem // Floofstation - made partial
 {
     [Dependency] private readonly INetManager _netMan = default!;
     [Dependency] private readonly IReplayRecordingManager _replay = default!;
@@ -57,8 +58,9 @@ public sealed class RadioSystem : EntitySystem
         }
     }
 
-    private void OnIntrinsicReceive(EntityUid uid, IntrinsicRadioReceiverComponent component, ref RadioReceiveEvent args)
+    private void OnIntrinsicReceive(EntityUid uid, IntrinsicRadioReceiverComponent component, ref RadioReceiveEvent argsRaw)
     {
+        var args = ApplyLanguageUnderstanding(argsRaw, uid); // Floofstation - languages
         if (!TryComp(uid, out ActorComponent? actor))
             return;
 
@@ -103,7 +105,8 @@ public sealed class RadioSystem : EntitySystem
     /// </summary>
     /// <param name="messageSource">Entity that spoke the message</param>
     /// <param name="radioSource">Entity that picked up the message and will send it, e.g. headset</param>
-    public void SendRadioMessage(EntityUid messageSource, string message, RadioChannelPrototype channel, EntityUid radioSource, bool escapeMarkup = true, EmoteType? emType = null) // DeltaV - EmoteType? added.
+    /// <param name="languageOverride">Added by floofstation - allows overriding the language of the message. Defaults to the language of the radio source.</param>
+    public void SendRadioMessage(EntityUid messageSource, string message, RadioChannelPrototype channel, EntityUid radioSource, bool escapeMarkup = true, EmoteType? emType = null, LanguagePrototype? languageOverride = null) // DeltaV - EmoteType? added. // Inferus - Languages
     {
         // TODO if radios ever garble / modify messages, feedback-prevention needs to be handled better than this.
         if (!_messages.Add(message))
@@ -125,6 +128,9 @@ public sealed class RadioSystem : EntitySystem
             ? FormattedMessage.EscapeText(message)
             : message;
 
+        // Floofstation notice: if the below gets changed, make sure to update ConstructChatMessage too
+        var language = languageOverride ?? _language.GetLanguage(messageSource);
+
         // DeltaV - This change is to change up how the messages are wrapped up. Basically changing the formatting depending on the emote type.
         string wrappedMessage;
 
@@ -142,23 +148,28 @@ public sealed class RadioSystem : EntitySystem
                 ("message", content));
         else
             wrappedMessage = Loc.GetString(speech.Bold ? "chat-radio-message-wrap-bold" : "chat-radio-message-wrap",
-                ("color", channel.Color),
-                ("fontType", speech.FontId),
-                ("fontSize", speech.FontSize),
+                ("channelColor", channel.Color), // Floofstation edit: renamed to channelColor
+                ("fontType", language.SpeechOverride.FontId ?? speech.FontId), // Floofstation edit
+                ("fontSize", language.SpeechOverride.FontSize ?? speech.FontSize), // Floofstation edit
                 ("verb", Loc.GetString(_random.Pick(speech.SpeechVerbStrings))),
                 ("channel", $"\\[{channel.LocalizedName}\\]"),
                 ("name", name),
+                // Floofstation. Note that we explicitly don't use channel.Color here because this is only used for the language hint.
+                ("language", ChatSystem.LanguageNameForFluent(language)),
+                ("textColor", ChatSystem.LanguageColorForFluent(language, new(200, 200, 200))),
+                ("textFont", ChatSystem.LanguageFontForFluent(language)),
+                // Floofstation section end
                 ("message", content));
         // DeltaV - End
 
         // most radios are relayed to chat, so lets parse the chat message beforehand
-        var chat = new ChatMessage(
+        var chat = MakeChatMessage( // Floofstation - replace with a method call
             ChatChannel.Radio,
             message,
             wrappedMessage,
-            NetEntity.Invalid,
+            messageSource,
             null,
-            radioChannelProto: channel.ID); // DeltaV - Add RadioChannel for committing sins
+            speech, channel, name, language);
         var chatMsg = new MsgChatMessage { Message = chat };
         var ev = new RadioReceiveEvent(message, messageSource, channel, radioSource, chatMsg);
 

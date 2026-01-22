@@ -42,6 +42,15 @@
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
+  - type: LanguageSpeaker # Floofstation - machines need to be able to speak
+  - type: LanguageKnowledge # Floofstation
+    speaks:
+    - TauCetiBasic
+    - Binary
+    understands:
+    - TauCetiBasic
+    - Binary
+    naturalLanguage: Binary
 
 - type: entity
   abstract: true

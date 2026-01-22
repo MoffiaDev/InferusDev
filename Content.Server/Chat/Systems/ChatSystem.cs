@@ -1,3 +1,15 @@
+// Floofstaiton section - those have been moved
+global using InGameICChatType = Content.Shared.Chat.InGameICChatType;
+global using InGameOOCChatType = Content.Shared.Chat.InGameOOCChatType;
+// SHUT UPPPP! I'm not fixing those, leave that to wizden
+// ReSharper disable InvalidXmlDocComment
+// ReSharper disable MissingLinebreak
+// ReSharper disable BadListLineBreaks
+// ReSharper disable RedundantArgumentDefaultValue
+// ReSharper disable BadEmptyBracesLineBreaks
+// ReSharper disable ArrangeObjectCreationWhenTypeNotEvident
+// Floofstation section end
+
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -417,7 +429,7 @@ public sealed partial class ChatSystem : SharedChatSystem
         bool ignoreActionBlocker = false
         )
     {
-        if (!_actionBlocker.CanSpeak(source) && !ignoreActionBlocker)
+        if (!CanSpeakLanguage(source, out var language, ignoreActionBlocker: ignoreActionBlocker)) // Floofstation - replace with method call
             return;
 
         var message = TransformSpeech(source, originalMessage);
@@ -444,15 +456,10 @@ public sealed partial class ChatSystem : SharedChatSystem
         }
 
         name = FormattedMessage.EscapeText(name);
-
-        var wrappedMessage = Loc.GetString(speech.Bold ? "chat-manager-entity-say-bold-wrap-message" : "chat-manager-entity-say-wrap-message",
-            ("entityName", name),
-            ("verb", Loc.GetString(_random.Pick(speech.SpeechVerbStrings))),
-            ("fontType", speech.FontId),
-            ("fontSize", speech.FontSize),
-            ("message", FormattedMessage.EscapeText(message)));
-
-        SendInVoiceRange(ChatChannel.Local, message, wrappedMessage, source, range);
+        // Floofstation section: the old 10-line loc call has been shoved into this method. Make sure to propagate any upstream changes!
+        var (wrappedMessage, obfuscatedMessage) = WrapEntitySpeech(speech, name, message, language);
+        SendInVoiceRange(ChatChannel.Local, wrappedMessage, obfuscatedMessage, source, range, checkLOS: language.SpeechOverride.RequireLOS);
+        // Floofstation section end
 
         var ev = new EntitySpokeEvent(source, message, null, null);
         RaiseLocalEvent(source, ev, true);
@@ -490,14 +497,14 @@ public sealed partial class ChatSystem : SharedChatSystem
         bool ignoreActionBlocker = false
         )
     {
-        if (!_actionBlocker.CanSpeak(source) && !ignoreActionBlocker)
+        if (!CanSpeakLanguage(source, out var language, ignoreActionBlocker: ignoreActionBlocker)) // Floofstation - replace with method call
             return;
 
         var message = TransformSpeech(source, FormattedMessage.RemoveMarkupOrThrow(originalMessage));
         if (message.Length == 0)
             return;
 
-        var obfuscatedMessage = ObfuscateMessageReadability(message, 0.2f);
+        // var obfuscatedMessage = ObfuscateMessageReadability(message, 0.2f); // Floofstation - commented out
 
         // get the entity's name by visual identity (if no override provided).
         string nameIdentity = FormattedMessage.EscapeText(nameOverride ?? Identity.Name(source, EntityManager));
@@ -515,14 +522,16 @@ public sealed partial class ChatSystem : SharedChatSystem
         }
         name = FormattedMessage.EscapeText(name);
 
-        var wrappedMessage = Loc.GetString("chat-manager-entity-whisper-wrap-message",
-            ("entityName", name), ("message", FormattedMessage.EscapeText(message)));
-
-        var wrappedobfuscatedMessage = Loc.GetString("chat-manager-entity-whisper-wrap-message",
-            ("entityName", nameIdentity), ("message", FormattedMessage.EscapeText(obfuscatedMessage)));
-
-        var wrappedUnknownMessage = Loc.GetString("chat-manager-entity-whisper-unknown-wrap-message",
-            ("message", FormattedMessage.EscapeText(obfuscatedMessage)));
+        // Floofstation - don't pre-compute most of it
+        // var wrappedMessage = WrapEntityWhisper(name, message, true, true, SharedLanguageSystem.Universal);
+        // var wrappedMessage = Loc.GetString("chat-manager-entity-whisper-wrap-message",
+        //     ("entityName", name), ("message", FormattedMessage.EscapeText(message)));
+        //
+        // var wrappedobfuscatedMessage = Loc.GetString("chat-manager-entity-whisper-wrap-message",
+        //     ("entityName", nameIdentity), ("message", FormattedMessage.EscapeText(obfuscatedMessage)));
+        //
+        // var wrappedUnknownMessage = Loc.GetString("chat-manager-entity-whisper-unknown-wrap-message",
+        //     ("message", FormattedMessage.EscapeText(obfuscatedMessage)));
 
 
         foreach (var (session, data) in GetRecipients(source, WhisperMuffledRange))
@@ -536,19 +545,31 @@ public sealed partial class ChatSystem : SharedChatSystem
             if (MessageRangeCheck(session, data, range) != MessageRangeCheckResult.Full)
                 continue; // Won't get logged to chat, and ghosts are too far away to see the pop-up, so we just won't send it to them.
 
-            if (data.Range <= WhisperClearRange || data.Observer)
-                _chatManager.ChatMessageToOne(ChatChannel.Whisper, message, wrappedMessage, source, false, session.Channel);
-            //If listener is too far, they only hear fragments of the message
-            else if (_examineSystem.InRangeUnOccluded(source, listener, WhisperMuffledRange))
-                _chatManager.ChatMessageToOne(ChatChannel.Whisper, obfuscatedMessage, wrappedobfuscatedMessage, source, false, session.Channel);
-            //If listener is too far and has no line of sight, they can't identify the whisperer's identity
-            else
-                _chatManager.ChatMessageToOne(ChatChannel.Whisper, obfuscatedMessage, wrappedUnknownMessage, source, false, session.Channel);
+            // Floofstation section: we don't cache the different whisper message wraps because most whispers will be heard by at most 2-3 people
+            // Pre-computing 6 different message wraps is unnecessary
+            var canClearlyHear = (data.Range <= WhisperClearRange && data.InLOS) || data.Observer;
+            var knowsIdentity = data.InLOS;
+            var canUnderstandLanguage = _languages.CanUnderstand(listener, language);
+            var messageWrap = WrapEntityWhisper(name, message, canClearlyHear, knowsIdentity, canUnderstandLanguage, language);
+            _chatManager.ChatMessageToOne(ChatChannel.Whisper, messageWrap.Original, messageWrap.Wrapped, source, false, session.Channel);
+            // Floofstation section end
+
+            // Floofstation: this is what used to be here
+            // if (data.Range <= WhisperClearRange || data.Observer)
+            //     _chatManager.ChatMessageToOne(ChatChannel.Whisper, message, wrappedMessage, source, false, session.Channel);
+            // //If listener is too far, they only hear fragments of the message
+            // else if (_examineSystem.InRangeUnOccluded(source, listener, WhisperMuffledRange))
+            //     _chatManager.ChatMessageToOne(ChatChannel.Whisper, obfuscatedMessage, wrappedobfuscatedMessage, source, false, session.Channel);
+            // //If listener is too far and has no line of sight, they can't identify the whisperer's identity
+            // else
+            //     _chatManager.ChatMessageToOne(ChatChannel.Whisper, obfuscatedMessage, wrappedUnknownMessage, source, false, session.Channel);
         }
 
+        // Floofstation edit. Please free me from this tormention.
+        var wrappedMessage = WrapEntityWhisper(name, message, true, true, true).Wrapped;
         _replay.RecordServerMessage(new ChatMessage(ChatChannel.Whisper, message, wrappedMessage, GetNetEntity(source), null, MessageRangeHideChatForReplay(range)));
 
-        var ev = new EntitySpokeEvent(source, message, channel, obfuscatedMessage);
+        var ev = new EntitySpokeEvent(source, message, channel, WrapEntityWhisper(name, message, false, true, true).Original);
         RaiseLocalEvent(source, ev, true);
         if (!hideLog)
             if (originalMessage == message)
@@ -597,7 +618,8 @@ public sealed partial class ChatSystem : SharedChatSystem
         name = FormattedMessage.EscapeText(name);
 
         var wrappedMessage = Loc.GetString("chat-manager-entity-whisper-wrap-message",
-            ("entityName", name), ("message", FormattedMessage.EscapeText(message)));
+            ("entityName", name), ("message", FormattedMessage.EscapeText(message)),
+            ("textColor", "ffffff"), ("language", LanguageNameForFluent(null))); // Floofstation - extra args because d-v for some reason decided to reuse the whisper wrap.
 
         foreach (var (session, data) in GetRecipients(source, WhisperMuffledRange))
         {
@@ -674,7 +696,7 @@ public sealed partial class ChatSystem : SharedChatSystem
             !TryEmoteChatInput(source, action))
             return;
 
-        SendInVoiceRange(ChatChannel.Emotes, action, wrappedMessage, source, range, author);
+        SendInVoiceRange(ChatChannel.Emotes, new(action, wrappedMessage), MessageWrapData.Empty, source, range, author); // Inferus - Languages
         if (!hideLog)
             if (name != Name(source))
                 _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Emote from {source} as {name}: {action}");
@@ -754,7 +776,8 @@ public sealed partial class ChatSystem : SharedChatSystem
             ("entityName", name),
             ("message", FormattedMessage.EscapeText(message)));
 
-        SendInVoiceRange(ChatChannel.LOOC, message, wrappedMessage, source, hideChat ? ChatTransmitRange.HideChat : ChatTransmitRange.Normal, player.UserId);
+        // Floofstation: this uses a default message wrap that's spoken in Universal.
+        SendInVoiceRange(ChatChannel.LOOC, new(message, wrappedMessage), MessageWrapData.Empty, source, hideChat ? ChatTransmitRange.HideChat : ChatTransmitRange.Normal, player.UserId);
         _adminLogger.Add(LogType.Chat, LogImpact.Low, $"LOOC from {source}: {message}");
     }
 
@@ -835,18 +858,24 @@ public sealed partial class ChatSystem : SharedChatSystem
     /// <summary>
     ///     Sends a chat message to the given players in range of the source entity.
     /// </summary>
-    private void SendInVoiceRange(ChatChannel channel, string message, string wrappedMessage, EntityUid source, ChatTransmitRange range, NetUserId? author = null)
+    // Floofstation - add checkLOS; also replace string parameters with MessageWrapData. See WrapEntitySpeech().
+    private void SendInVoiceRange(ChatChannel channel, MessageWrapData normalMessage, MessageWrapData languageObfuscatedMessage, EntityUid source, ChatTransmitRange range, NetUserId? author = null, bool checkLOS = false)
     {
         foreach (var (session, data) in GetRecipients(source, VoiceRange))
         {
             var entRange = MessageRangeCheck(session, data, range);
             if (entRange == MessageRangeCheckResult.Disallowed)
                 continue;
+
             var entHideChat = entRange == MessageRangeCheckResult.HideChat;
-            _chatManager.ChatMessageToOne(channel, message, wrappedMessage, source, entHideChat, session.Channel, author: author);
+            // Floofstation edit: check languages
+            if (_languages.CanUnderstand(session.AttachedEntity!.Value, normalMessage.Language))
+                _chatManager.ChatMessageToOne(channel, normalMessage.Original, normalMessage.Wrapped, source, entHideChat, session.Channel, author: author);
+            else
+                _chatManager.ChatMessageToOne(channel, languageObfuscatedMessage.Original, languageObfuscatedMessage.Wrapped, source, entHideChat, session.Channel, author: author);
         }
 
-        _replay.RecordServerMessage(new ChatMessage(channel, message, wrappedMessage, GetNetEntity(source), null, MessageRangeHideChatForReplay(range)));
+        _replay.RecordServerMessage(new ChatMessage(channel, normalMessage.Original, normalMessage.Wrapped, GetNetEntity(source), null, MessageRangeHideChatForReplay(range)));
     }
 
     /// <summary>
