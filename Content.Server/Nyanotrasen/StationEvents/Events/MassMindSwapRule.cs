@@ -1,6 +1,7 @@
 using Content.Server.Chat.Systems;
 using Content.Server.StationEvents.Components;
 using Content.Server.StationEvents.Events;
+using Content.Shared._Common.Consent;
 using Content.Shared._DV.Psionics.Components;
 using Content.Shared._DV.Psionics.Systems;
 using Content.Shared._DV.Psionics.Systems.PsionicPowers;
@@ -10,6 +11,7 @@ using Content.Shared.Mobs.Systems;
 using Robust.Server.Audio;
 using Robust.Shared.Audio;
 using Robust.Shared.Player;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
 namespace Content.Server.Nyanotrasen.StationEvents.Events;
@@ -25,6 +27,9 @@ internal sealed class MassMindSwapRule : StationEventSystem<MassMindSwapRuleComp
     [Dependency] private readonly SharedMindSwapPowerSystem _mindSwap = default!;
     [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
     [Dependency] private readonly SharedPsionicSystem _psionic = default!;
+    [Dependency] private readonly SharedConsentSystem _consent = default!; // Floofstation
+
+    private static readonly ProtoId<ConsentTogglePrototype> MindswapConsent = "MassMindswap"; // Floofstation
 
     private TimeSpan _warningSoundLength;
     private ResolvedSoundSpecifier _resolvedWarningSound = String.Empty;
@@ -73,6 +78,9 @@ internal sealed class MassMindSwapRule : StationEventSystem<MassMindSwapRuleComp
         var query = EntityQueryEnumerator<PotentialPsionicComponent, MobStateComponent>();
         while (query.MoveNext(out var psion, out _, out var mobState))
         {
+            if (!_consent.HasConsent(psion, MindswapConsent)) // Floofstation - requires consent
+                continue;
+
             if (!_mobStateSystem.IsAlive(psion, mobState) || !_psionic.CanBeTargeted(psion))
                 continue;
 
@@ -107,6 +115,7 @@ internal sealed class MassMindSwapRule : StationEventSystem<MassMindSwapRuleComp
                 // A valid swap target has been found.
                 // Remove this actor from the pool of swap candidates before they go.
                 psionicPool.Remove(actor);
+                psionicPool.Remove(other); // Floofstation - remove both from the pool so avoid having chain swaps which get people trapped
 
                 // Do the swap. Also ignore mindshields, because this is the big boi swap.
                 _mindSwap.SwapMinds(actor, other, false, component.IsTemporary, true);
