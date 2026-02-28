@@ -130,6 +130,9 @@ public sealed partial class RadioSystem : EntitySystem // Floofstation - made pa
 
         // Floofstation notice: if the below gets changed, make sure to update ConstructChatMessage too
         var language = languageOverride ?? _language.GetLanguage(messageSource);
+        if (!language.SpeechOverride.AllowRadio)
+            return;
+        // Floofstation section end
 
         // DeltaV - This change is to change up how the messages are wrapped up. Basically changing the formatting depending on the emote type.
         string wrappedMessage;
