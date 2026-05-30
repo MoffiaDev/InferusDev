@@ -250,8 +250,8 @@
         reagents:
         - ReagentId: Omnizine
           Quantity: 1
-    - type: ReplacementAccent
-      accent: xeno #Add cool snake accent later. wyci
+    #- type: ReplacementAccent # Floofstation - disbaled to let them speak langauges like other station pets
+    #  accent: xeno #Add cool snake accent later. wyci
     - type: PointLight
       radius: 1.1
       energy: 0.25
@@ -296,8 +296,10 @@
     - type: LanguageKnowledge # Floofstation. Pets understand tau-ceti.
       speaks:
       - Hissing
+      - Draconic
       understands:
       - Hissing
+      - Draconic
       - TauCetiBasic
 
 - type: entity
