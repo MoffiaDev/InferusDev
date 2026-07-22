@@ -13,6 +13,7 @@ global using InGameOOCChatType = Content.Shared.Chat.InGameOOCChatType;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using Content.Server._Floof.Language; // Starlight: Language prefixes
 using Content.Server.Administration.Logs;
 using Content.Server.Administration.Managers;
 using Content.Server.Chat.Managers;
@@ -74,7 +75,8 @@ public sealed partial class ChatSystem : SharedChatSystem
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly ReplacementAccentSystem _wordreplacement = default!;
     [Dependency] private readonly ExamineSystemShared _examineSystem = default!;
-    
+    [Dependency] private readonly LanguageSystem _languages = default!; // Starlight: Language prefixes
+
     //Nyano - Summary: pulls in the nyano chat system for psionics.
     [Dependency] private readonly NyanoChatSystem _nyanoChatSystem = default!;
 
@@ -225,6 +227,10 @@ public sealed partial class ChatSystem : SharedChatSystem
             || (CultureInfo.CurrentCulture.IsNeutralCulture && CultureInfo.CurrentCulture.Name == "en");
 
         message = SanitizeInGameICMessage(source, message, out var emoteStr, shouldCapitalize, shouldPunctuate, shouldCapitalizeTheWordI);
+
+        var prefix = _languages.GetLanguageFromPrefix(source, ref message, out var parsed, true); // Starlight start: Language prefixes
+        using var _ = parsed && _languages.CanSpeak(source, prefix)
+            ? _languages.SubstituteEntityLanguage(source, prefix.ID) : null;
 
         // Was there an emote in the message? If so, send it.
         if (player != null && emoteStr != message && emoteStr != null)
