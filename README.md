@@ -1,5 +1,5 @@
 <div class="header" align="center">
-<img alt="Inferus Logo" width="128" height="128" src="https://raw.githubusercontent.com/MoffiaDev/InferusDev/master/Resources/Textures/Logo/logo.png" />
+<img alt="Inferus Logo" width="768" height="512" src="https://raw.githubusercontent.com/MoffiaDev/InferusDev/master/Resources/Textures/Logo/logo.png" />
 </div>
 
 Inferus is a fork of [Delta-V](github.com/DeltaV-Station/Delta-v), which is a fork of [Space Station 14](https://github.com/space-wizards/space-station-14), embracing a mixture of classic SS13 chaos and experimentation only possible with the new engine.
