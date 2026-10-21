@@ -1,15 +1,20 @@
 <div class="header" align="center">
-<img alt="Delta-V Logo" width="128" height="128" src="https://raw.githubusercontent.com/DeltaV-Station/Delta-v/master/Resources/Textures/Logo/logo.png" />
-<!-- <img alt="Delta-V Banner" width="512" height="126" src="https://raw.githubusercontent.com/DeltaV-Station/Delta-v/master/Resources/Textures/Logo/banner.png" /> -->
+<img alt="Inferus Logo" width="128" height="128" src="https://raw.githubusercontent.com/MoffiaDev/InferusDev/master/Resources/Textures/Logo/logo.png" />
 </div>
 
-Delta-V is a fork of [Space Station 14](https://github.com/space-wizards/space-station-14), embracing a mixture of classic SS13 chaos and experimentation only possible with the new engine.
+Inferus is a fork of [Delta-V](github.com/DeltaV-Station/Delta-v), which is a fork of [Space Station 14](https://github.com/space-wizards/space-station-14), embracing a mixture of classic SS13 chaos and experimentation only possible with the new engine.
+Inferus is an adult-oriented fork of Space Station 14, built off of the Delta-V codebase.
 
 Space Station 14 is a remake of SS13 that runs on [Robust Toolbox](https://github.com/space-wizards/RobustToolbox), a homegrown engine written in C#.
 
 ### Any work done in a non-base namespace may contain incorrect attributions due to rewrites and recommitting.
 
 ## Links
+
+#### Inferus
+<div class="header" align="center">
+
+[Discord](https://discord.gg/qVE8unxEj3) | GitHub (Wait, you're already here!)
 
 #### DeltaV
 <div class="header" align="center">
@@ -34,9 +39,9 @@ Additionally, see these resources for license and attribution information:
 
 ## Contributing
 
-We are happy to accept contributions from anybody. Get in Discord if you want to help. We've got a [list of issues](https://github.com/DeltaV-Station/Delta-v/issues) that need to be done and anybody can pick them up. Don't be afraid to ask for help either!
+We are happy to accept contributions from anybody. Get in Discord if you want to help. We've got a [list of issues](https://github.com/MoffiaDev/InferusDev/issues) that need to be done and anybody can pick them up. Don't be afraid to ask for help either!
 
-Make sure to read [CONTRIBUTING.md](/CONTRIBUTING.md) if you are new to Delta-V!
+Make sure to read [CONTRIBUTING.md](/CONTRIBUTING.md) if you are new to Inferus!
 
 ## AI-generated contributions disclaimer
 This project does not accept low-effort or wholesale AI-generated contributions. Examples include, but are not limited to:
@@ -45,17 +50,17 @@ This project does not accept low-effort or wholesale AI-generated contributions.
 - AI-created artwork, sound files, or other assets.
 - Auto-generated documentation, issue reports or pull request descriptions.
 
-Exceptions to this are simple tools like Rider's single-line completion feature.
+However, exceptions can be made if AI has assisted in a miniscule amount of content. AI is to be used as a tool, not a replacement for a skill.
 
 ## Building
 
 1. Clone this repo:
 ```shell
-git clone https://github.com/DeltaV-Station/Delta-v.git
+git clone https://github.com/MoffiaDev/InferusDev.git
 ```
 2. Go to the project folder and run `RUN_THIS.py` to initialize the submodules and load the engine:
 ```shell
-cd Delta-v
+cd InferusDev
 python RUN_THIS.py
 ```
 3. Compile the solution:
