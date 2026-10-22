@@ -55,7 +55,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         DISCORD_WEBHOOK_URL: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK }}
-        CHANGELOG_FILE: "Resources/Changelog/DeltaVChangelog.yml"
+        CHANGELOG_FILE: "Resources/Changelog/InferusChangelog.yml"
 
     - name: Publish maps changelog (Discord)
       continue-on-error: true
