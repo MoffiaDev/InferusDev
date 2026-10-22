@@ -11,9 +11,3 @@
 /Resources/Maps/ @MoffiaDev/maptainers
 /Resources/Prototypes/Maps/ @MoffiaDev/maptainers
 /Content.IntegrationTests/Tests/PostMapInitTest.cs @MoffiaDev/maptainers
-
-# Server rules, wip
-# /Resources/ServerInfo/Guidebook/_DV/Rules/ @MoffiaDev/head-administrators
-
-# Wiki, wip
-# /.wiki/ @MoffiaDev/direction

@@ -36,7 +36,7 @@ And.. please, change it from the template below, if you do include it. -->
 <!--
 :cl:
 - add: Added moths!
-- remove: Removed IPCs!
+- remove: Removed moths!
 - tweak: Changed chitters!
 - fix: Fixed clowns!
 -->
