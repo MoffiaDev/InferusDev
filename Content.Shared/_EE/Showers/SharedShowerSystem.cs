@@ -21,9 +21,11 @@ namespace Content.Shared.Showers
         }
         private void OnMapInit(EntityUid uid, ShowerComponent component, MapInitEvent args)
         {
-            if (_random.Prob(0.5f))
-            if (_random.Prob(0.1f))
+            if (_random.Prob(0.1f)) // Inferus - Shower fixes
+            {
                 component.ToggleShower = true;
+                Dirty(uid, component); // Inferus - Shower fixes
+            }
             UpdateAppearance(uid);
         }
         private void OnToggleShowerVerb(EntityUid uid, ShowerComponent component, GetVerbsEvent<AlternativeVerb> args)
@@ -36,7 +38,7 @@ namespace Content.Shared.Showers
                 Act = () => ToggleShowerHead(uid, args.User, component)
             };
 
-            if (component.ToggleShower)
+            if (!component.ToggleShower) // Inferus - Shower fixes
             {
                 toggleVerb.Text = Loc.GetString("shower-turn-on");
                 toggleVerb.Icon =
@@ -57,8 +59,6 @@ namespace Content.Shared.Showers
 
             args.Handled = true;
             ToggleShowerHead(uid, args.User, comp);
-
-            _audio.PlayPvs(comp.EnableShowerSound, uid);
         }
         public void ToggleShowerHead(EntityUid uid, EntityUid? user = null, ShowerComponent? component = null, MetaDataComponent? meta = null)
         {
@@ -66,6 +66,8 @@ namespace Content.Shared.Showers
                 return;
 
             component.ToggleShower = !component.ToggleShower;
+            Dirty(uid, component); // Inferus - Shower fixes
+            _audio.PlayPvs(component.EnableShowerSound, uid); // Inferus - Shower fixes
 
             UpdateAppearance(uid, component);
         }
