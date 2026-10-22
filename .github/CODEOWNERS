@@ -1,11 +1,17 @@
 # Last match in file takes precedence.
 # See https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners#example-of-a-codeowners-file
 
-* @MoffiaDev/maintainer
+* @DeltaV-Station/maintainers
+
+# Server config files
+/Resources/ConfigPresets/ @DeltaV-Station/lead-maintainers
+
+# Github workflows
+/.github/ @DeltaV-Station/lead-maintainers
 
 # Lobby art and music - automatically direction issues since its immediately visible to players
-/Resources/Audio/Lobby/ @MoffiaDev/maintainer
-/Resources/Textures/LobbyScreens/ @MoffiaDev/maintainer
+/Resources/Audio/Lobby/ @DeltaV-Station/direction @DeltaV-Station/maintainers
+/Resources/Textures/LobbyScreens/ @DeltaV-Station/direction @DeltaV-Station/maintainers
 
 # Maps
 /Resources/Maps/ @MoffiaDev/maptainers
