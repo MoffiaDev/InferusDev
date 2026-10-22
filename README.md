@@ -2,7 +2,7 @@
 <img alt="Inferus Logo" width="768" height="512" src="https://raw.githubusercontent.com/MoffiaDev/InferusDev/master/Resources/Textures/Logo/logo.png" />
 </div>
 
-Inferus is a fork of [Delta-V](github.com/DeltaV-Station/Delta-v), which is a fork of [Space Station 14](https://github.com/space-wizards/space-station-14), embracing a mixture of classic SS13 chaos and experimentation only possible with the new engine.
+Inferus is a fork of [Delta-V](https://github.com/DeltaV-Station/Delta-v), which is a fork of [Space Station 14](https://github.com/space-wizards/space-station-14), embracing a mixture of classic SS13 chaos and experimentation only possible with the new engine.
 Inferus is an adult-oriented fork of Space Station 14, built off of the Delta-V codebase.
 
 Space Station 14 is a remake of SS13 that runs on [Robust Toolbox](https://github.com/space-wizards/RobustToolbox), a homegrown engine written in C#.
