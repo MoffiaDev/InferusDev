@@ -1,25 +1,19 @@
 # Last match in file takes precedence.
 # See https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners#example-of-a-codeowners-file
 
-* @DeltaV-Station/maintainers
-
-# Server config files
-/Resources/ConfigPresets/ @DeltaV-Station/lead-maintainers
-
-# Github workflows
-/.github/ @DeltaV-Station/lead-maintainers
+* @MoffiaDev/maintainer
 
 # Lobby art and music - automatically direction issues since its immediately visible to players
-/Resources/Audio/Lobby/ @DeltaV-Station/direction @DeltaV-Station/maintainers
-/Resources/Textures/LobbyScreens/ @DeltaV-Station/direction @DeltaV-Station/maintainers
+/Resources/Audio/Lobby/ @MoffiaDev/maintainer
+/Resources/Textures/LobbyScreens/ @MoffiaDev/maintainer
 
 # Maps
-/Resources/Maps/ @DeltaV-Station/maptainers
-/Resources/Prototypes/Maps/ @DeltaV-Station/maptainers
-/Content.IntegrationTests/Tests/PostMapInitTest.cs @DeltaV-Station/maptainers @DeltaV-Station/maintainers 
+/Resources/Maps/ @MoffiaDev/maptainers
+/Resources/Prototypes/Maps/ @MoffiaDev/maptainers
+/Content.IntegrationTests/Tests/PostMapInitTest.cs @MoffiaDev/maptainers
 
-# Server rules
-/Resources/ServerInfo/Guidebook/_DV/Rules/ @DeltaV-Station/head-administrators
+# Server rules, wip
+# /Resources/ServerInfo/Guidebook/_DV/Rules/ @MoffiaDev/head-administrators
 
-# Wiki
-/.wiki/ @DeltaV-Station/direction
+# Wiki, wip
+# /.wiki/ @MoffiaDev/direction
