@@ -12,10 +12,12 @@ RELEASE_DIR = "release"
 
 #
 # CONFIGURATION PARAMETERS
-# Forks should change these to publish to their own infrastructure.
+# Set via environment (GitHub Actions variables ROBUST_CDN_URL / FORK_ID); empty or unset uses the defaults.
 #
-ROBUST_CDN_URL = "https://cdn.deltav.gay/"
-FORK_ID = "delta-v"
+ROBUST_CDN_URL = os.environ.get("ROBUST_CDN_URL") or "https://cdn.deltav.gay/"
+if not ROBUST_CDN_URL.endswith("/"):
+    ROBUST_CDN_URL += "/"
+FORK_ID = os.environ.get("FORK_ID") or "delta-v"
 
 def main():
     session = requests.Session()
