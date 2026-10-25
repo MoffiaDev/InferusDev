@@ -1,8 +1,13 @@
-﻿Order: -100
 Entries:
 - author: Tarazicon
   changes:
-  - message: Tab created.
-    type: Add
+    - message: Tab created.
+      type: Add
   id: 1
   time: '2026-10-21'
+- author: Pachat-Kas
+  changes:
+    - type: Tweak
+      message: Changelog bot test.
+  id: 2
+  time: '2026-10-25T14:44:59.0000000+00:00'
