@@ -141,14 +141,14 @@ function writeChangelog(entry) {
 
     data.Entries.push(entry);
 
-    const { Entries, ...header } = data; // Inferus - Changelog
+    const { Entries, ...header } = data;
 
     // Write updated changelogs file
     fs.writeFileSync(
         `../../${process.env.CHANGELOG_DIR}`,
-        (Object.keys(header).length ? yaml.dump(header) : "") + // Inferus - Changelog
+        (Object.keys(header).length ? yaml.dump(header) : "") +
         "Entries:\n" +
-            yaml.dump(Entries, { indent: 2 }).replace(/^---/, "") // Inferus - Changelog
+            yaml.dump(Entries, { indent: 2 }).replace(/^---/, "")
     );
 }
 
