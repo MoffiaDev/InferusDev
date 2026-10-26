@@ -1,1 +1,1 @@
-changelog-tab-title-DeltaVChangelog = Inferus
+changelog-tab-title-InferusChangelog = Inferus
