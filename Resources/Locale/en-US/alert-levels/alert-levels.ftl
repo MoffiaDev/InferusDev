@@ -1,51 +1,51 @@
-alert-level-announcement = Attention! Station alert level has been set to {$name}! {$announcement}
+alert-level-announcement = Attention. The station alert level has been set to {$name}. {$announcement}
 
-alert-level-unknown = Unknown.
-alert-level-unknown-instructions = Unknown.
+alert-level-unknown = Unknown
+alert-level-unknown-instructions = Unknown
 
 alert-level-green = Green
-alert-level-green-announcement = There is no currently known threat to the station, nor the crew. It is safe to return to your workplaces.
-alert-level-green-instructions = Do your job.
+alert-level-green-announcement = There is currently no known threat to the station or its crew. Personnel may safely return to their assigned duties.
+alert-level-green-instructions = Resume normal duties.
 
 alert-level-blue = Blue
-alert-level-blue-announcement = There is an ongoing, known, or suspected security threat to the station or its crew, or another significant security emergency. Crewmembers are advised to follow commands issued by any relevant authority.
-alert-level-blue-instructions = Crewmembers are advised to follow commands issued by any relevant authority.
+alert-level-blue-announcement = A known, suspected, or ongoing security threat exists to the station or its crew. All personnel are directed to comply with orders issued by relevant authorities.
+alert-level-blue-instructions = Comply with all directives issued by relevant authorities.
 
 alert-level-red = Red
-alert-level-red-announcement = There are multiple major emergency situations ongoing, or a major security emergency affecting the station. Crewmembers should find a safe place to shelter in, and are advised to follow any present authorities.
-alert-level-red-instructions = Crewmembers should find a safe place to shelter in, and are advised to follow any present authorities.
+alert-level-red-announcement = Multiple major emergencies are ongoing, or a significant security emergency is affecting the station. Personnel should seek a secure location and comply with any directives issued by present authorities.
+alert-level-red-instructions = Seek a secure location and comply with directives from present authorities.
 
 alert-level-violet = Violet
-alert-level-violet-announcement = There is a serious viral outbreak, ongoing major death event, or there is another significant medical emergency. Crewmembers are advised to distance themselves from others and perform safety measures to prevent further spread.
-alert-level-violet-instructions = Crewmembers are advised to distance themselves from others and perform safety measures to prevent further spread.
+alert-level-violet-announcement = A serious viral outbreak, major ongoing fatality event, or other significant medical emergency is in progress. Personnel are directed to maintain distance from others and implement appropriate safety measures to limit further transmission.
+alert-level-violet-instructions = Maintain distance from others and implement safety measures to prevent further spread.
 
 alert-level-white = White
-alert-level-white-announcement = The station is suffering dangerously high levels of glimmer, there are several active psionic threats, or there is another significant epistemic emergency. Turn off all glimmer probers. Seek psionic insulation. Psychics should report for mindwiping.
-alert-level-white-instructions = Crewmembers are advised to seek psionic insulation. Psychics should report for mindwiping.
+alert-level-white-announcement = The station is experiencing dangerously elevated levels of glimmer, multiple active psionic threats are present, or another significant epistemic emergency is underway. All glimmer probers must be deactivated. Seek psionic insulation. Psychic personnel are required to report for mindwiping.
+alert-level-white-instructions = Seek psionic insulation. Psychic personnel must report for mindwiping.
 
 alert-level-yellow = Yellow
-alert-level-yellow-announcement = There is a major issue with the atmospheric system, the station has suffered/is about to suffer significant damage, or there is another significant engineering emergency. Crewmembers are advised to stay away from the threat, and stay in their workplaces if necessary.
-alert-level-yellow-instructions = Crewmembers are advised to stay away from the threat, and stay in their workplaces if necessary.
+alert-level-yellow-announcement = A major atmospheric system failure has occurred or is imminent, the station has sustained or is about to sustain significant structural damage, or another critical engineering emergency is in progress. Personnel are directed to remain clear of the affected area and, where practicable, remain at their assigned workplaces.
+alert-level-yellow-instructions = Remain clear of the threat and, where necessary, remain at assigned workplaces.
 
 alert-level-gamma = Gamma
-alert-level-gamma-announcement = Central Command has called the Gamma Alert; the Station is on its last legs, almost everyone is dead, or there is another existential crisis affecting the station. Martial Law is now in effect.
-alert-level-gamma-instructions = All civilians are to immediately seek their nearest head for transportation to a secure location.
+alert-level-gamma-announcement = Central Command has declared Gamma Alert. The station is in a critical condition, substantial casualties have occurred, or another existential crisis is affecting the station. Martial law is now in effect.
+alert-level-gamma-instructions = All civilians are to report immediately to the nearest department head for transfer to a secure location.
 
 alert-level-delta = Delta
-alert-level-delta-announcement = Station scuttling is imminent, or there is another existential crisis affecting the station. All crew and passengers must be evacuated as applicable. Martial Law is now in effect.
-alert-level-delta-instructions = Crewmembers are advised to listen to heads of staff for more information.
+alert-level-delta-announcement = Station scuttling is imminent, or another existential crisis is affecting the station. All crew and passengers are to be evacuated as circumstances permit. Martial law is now in effect.
+alert-level-delta-instructions = Comply with directives from heads of staff for further information.
 
 ## DeltaV - Epsilon rewrite
 alert-level-epsilon = Epsilon
-alert-level-epsilon-announcement = Central Command has ordered the Epsilon security level on the station. Only orders from Central Command Officials are to be obeyed by the Station's Crew. Martial Law is now in effect.
-alert-level-epsilon-instructions = Crewmember are advised to await instructions from Central Command Personnel and to follow their orders when given.
+alert-level-epsilon-announcement = Central Command has ordered the Epsilon security level for the station. Only orders issued by Central Command officials are to be obeyed. Martial law is now in effect.
+alert-level-epsilon-instructions = Await instructions from Central Command personnel and comply with their orders when issued.
 
 ## DeltaV - Cosmic Cult
 alert-level-octarine = Octarine
-alert-level-octarine-announcement = A cataclysmic noospheric event threatens to envelop realspace. Station crew are to contain the event if possible, or else evacuate.
-alert-level-octarine-instructions = Crewmembers are advised to listen to heads of staff for more information.
+alert-level-octarine-announcement = A cataclysmic noospheric event threatens to envelop realspace. Station personnel are directed to contain the event if feasible, or to evacuate if containment is not possible.
+alert-level-octarine-instructions = Comply with directives from heads of staff for further information.
 
 ## DeltaV - Zeta
 alert-level-zeta = Zeta
-alert-level-zeta-announcement = The station is unrecoverable, and all important assets and crewmembers are to be evacuated. A distress signal has been sent to all nearby vessels. Security and Engineering staff are advised to minimize hazards and secure the Evacuation Dock. Crewmembers are advised to disembark the station by any means necessary. Godspeed.
-alert-level-zeta-instructions = Avoid hazards and prepare for Evacuation.
+alert-level-zeta-announcement = The station is unrecoverable. All critical assets and personnel are to be evacuated. A distress signal has been transmitted to all nearby vessels. Security and Engineering personnel are directed to minimise hazards and secure the Evacuation Dock. All personnel are advised to disembark the station by any available means. Godspeed.
+alert-level-zeta-instructions = Avoid hazards and prepare for evacuation.
