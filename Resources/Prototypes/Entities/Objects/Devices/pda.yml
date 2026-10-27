@@ -1024,7 +1024,7 @@
        !type:String
        pda-centcom
   - type: PdaBorderColor
-    borderColor: "#00842e"
+    borderColor: "#ff3700" # Inferus - redcomm
   - type: Icon
     state: pda-centcom
   - type: CartridgeLoader
