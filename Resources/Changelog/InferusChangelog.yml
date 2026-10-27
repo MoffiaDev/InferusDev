@@ -12,3 +12,15 @@ Entries:
       message: Changelog bot test.
   id: 2
   time: '2026-10-25T14:44:59.0000000+00:00'
+- author: Tarazicon
+  changes:
+    - type: Tweak
+      message: Central Command is now blood-orange.
+    - type: Tweak
+      message: The content warning popup now includes sexual content and public nudity.
+    - type: Tweak
+      message: >-
+        Announcement text for alert levels has been rewritten for better
+        clarity.
+  id: 3
+  time: '2026-10-27T15:36:20.0000000+00:00'
