@@ -53,16 +53,20 @@
         Blunt: 10
 
 - type: entity
-  parent: [ClothingEyesBase, BaseEngineeringContraband]
+  parent: [ClothingEyesBase, BaseEngineeringContraband, BaseToggleClothing] # Inferus - Funky meson goggles port, added BaseToggleClothing for the T-ray action
   id: ClothingEyesGlassesMeson
-  name: engineering goggles #less confusion
-  description: Green-tinted goggles using a proprietary polymer that provides protection from eye damage of all types.
+  # BEGIN Inferus
+  # name: engineering goggles #less confusion
+  # description: Green-tinted goggles using a proprietary polymer that provides protection from eye damage of all types.
+  name: AD-THz Meson Goggles # MOREEE confusion
+  description: Aetheris-issue engineering goggles that utilize THz radiation and mesons to reveal sub-floor infrastructure, while protecting the eyes from sparks and debris. Neat!
+  # END Inferus
   components:
   - type: Sprite
     sprite: Clothing/Eyes/Glasses/meson.rsi
   - type: Clothing
     sprite: Clothing/Eyes/Glasses/meson.rsi
-  - type: EyeProtection
+  # - type: EyeProtection # Inferus, suffer without advanced ones.
   - type: IdentityBlocker
     coverage: EYES
   - type: Tag
@@ -70,6 +74,19 @@
     - SecDogWearable # DeltaV - let Laika wear meson goggles
     - PetWearable
     - WhitelistChameleon
+  # BEGIN Inferus
+  - type: ToggleClothing
+    action: ActionToggleTray
+  - type: TrayScanner
+    soundOn:
+      path: /Audio/Items/flashlight_on.ogg
+    soundOff:
+      path: /Audio/Items/flashlight_off.ogg
+  - type: GoggleShader
+    shader: Goggles
+    color: '#5AB43CCC'
+    enabled: false
+  # END Inferus
 
 - type: entity
   parent: ClothingEyesBase

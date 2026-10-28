@@ -308,6 +308,8 @@
     modifiers:
       coefficients:
         Radiation: 0.95
+  - type: HelmetVisor # Inferus - hardsuit welding visors, inherited from the engineering helmet
+    rsiPath: _Funkystation/Clothing/Head/Hardsuits/engineering.rsi
   - type: Sprite
     sprite: _DV/Clothing/Head/Helmets/engineering-light.rsi
     layers:
@@ -318,6 +320,12 @@
       visible: false
       shader: unshaded
       map: [ "light" ]
+    # BEGIN Inferus - hardsuit welding visors, inherited from the engineering helmet. the RSI has no visor sprites, so let's borrow the engineering ones
+    - sprite: _Funkystation/Clothing/Head/Hardsuits/engineering.rsi
+      state: icon-up
+      visible: false
+      map: [ "visor_icon" ]
+    # END Inferus
   - type: ToggleableVisuals
     spriteLayer: light
     clothingVisuals:

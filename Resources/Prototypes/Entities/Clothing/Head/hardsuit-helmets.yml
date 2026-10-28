@@ -18,10 +18,14 @@
     - state: icon
     - state: icon-unshaded
       shader: unshaded
+      map: [ "unshaded_base" ] # Inferus - hardsuit welding visors
     - state: light-overlay
       visible: false
       shader: unshaded
       map: [ "light" ]
+    - state: icon-up # Inferus - hardsuit welding visors
+      visible: false
+      map: [ "visor_icon" ]
   - type: HandheldLight
     addPrefix: false
   - type: ToggleableVisuals
@@ -85,6 +89,24 @@
     tags:
     - CorgiWearable
     - WhitelistChameleon
+  # BEGIN Inferus - hardsuit welding visors
+  - type: HelmetVisor
+    isActive: true
+    components:
+    - type: EyeProtection
+    - type: FlashImmunity
+    - type: ESViewconeModifier # viewcone port, only while the visor is down!!
+      angleModifier: -160
+  - type: GenericVisualizer
+    visuals:
+      enum.HelmetVisorVisuals.IsDown:
+        visor_icon:
+          False: {visible: false}
+          True: {visible: true, state: icon-up}
+        unshaded_base:
+          False: {visible: true}
+          True: {visible: false}
+  # END Inferus
 
 #Engineering Hardsuit
 - type: entity
@@ -93,16 +115,18 @@
   name: engineering hardsuit helmet
   description: An engineering hardsuit helmet designed for working in low-pressure, high radioactive environments.
   components:
+  # BEGIN Inferus
   - type: Sprite
-    sprite: Clothing/Head/Hardsuits/engineering.rsi
+    sprite: _Funkystation/Clothing/Head/Hardsuits/engineering.rsi
     layers:
     - state: icon
-    - state: icon-unshaded
-      shader: unshaded
     - state: light-overlay
       visible: false
       shader: unshaded
       map: [ "light" ]
+    - state: icon-up
+      visible: false
+      map: [ "visor_icon" ]
   - type: HandheldLight
     addPrefix: false
   - type: ToggleableVisuals
@@ -117,45 +141,40 @@
       head-reptilian:
       - state: equipped-head-light-reptilian
         shader: unshaded
-      head-dog:
-      - state: equipped-head-light-dog
-        shader: unshaded
-      # Begin DeltaV species helmets
       head-vulpkanin:
-      - state: equipped-head-light-reptilian
+      - state: equipped-head-light-vulpkanin
+        shader: unshaded
+      head-dog:
+      - sprite: Clothing/Head/Hardsuits/engineering.rsi
+        state: equipped-head-light-dog
         shader: unshaded
       head-feroxi:
-      - state: equipped-head-light-feroxi
+      - sprite: Clothing/Head/Hardsuits/engineering.rsi
+        state: equipped-head-light-feroxi
         shader: unshaded
-      # End DeltaV species helmets
   - type: Clothing
     clothingVisuals:
       head:
       - state: equipped-head
-      - state: equipped-head-unshaded
-        shader: unshaded
       head-vox:
       - state: equipped-head-vox
-      - state: equipped-head-unshaded-vox
-        shader: unshaded
       head-reptilian:
       - state: equipped-head-reptilian
-      - state: equipped-head-unshaded-reptilian
-        shader: unshaded
-      # Begin DeltaV species helmets
       head-vulpkanin:
       - state: equipped-head-vulpkanin
-      - state: equipped-head-unshaded-vulpkanin
-        shader: unshaded
       head-feroxi:
-      - state: equipped-head-feroxi
-      - state: equipped-head-unshaded-feroxi
+      - sprite: Clothing/Head/Hardsuits/engineering.rsi
+        state: equipped-head-feroxi
+      - sprite: Clothing/Head/Hardsuits/engineering.rsi
+        state: equipped-head-unshaded-feroxi
         shader: unshaded
-      # End DeltaV species helmets
       head-dog:
-      - state: equipped-head-dog
-      - state: equipped-head-unshaded-dog
+      - sprite: Clothing/Head/Hardsuits/engineering.rsi
+        state: equipped-head-dog
+      - sprite: Clothing/Head/Hardsuits/engineering.rsi
+        state: equipped-head-unshaded-dog
         shader: unshaded
+  # END Inferus
   - type: PointLight
     color: "#ffdbad"
   - type: PressureProtection
@@ -165,6 +184,22 @@
     tags:
     - CorgiWearable
     - WhitelistChameleon
+  # BEGIN Inferus - hardsuit welding visors
+  - type: HelmetVisor
+    isActive: true
+    supportedSuffixes: [ "-reptilian", "-vox", "-vulpkanin" ] # only species the visor sprites cover, which, is quite unfortunate......
+    components:
+    - type: EyeProtection
+    - type: FlashImmunity
+    - type: ESViewconeModifier # viewcone port, only while the visor is down!!
+      angleModifier: -160
+  - type: GenericVisualizer
+    visuals:
+      enum.HelmetVisorVisuals.IsDown:
+        visor_icon:
+          False: {visible: false}
+          True: {visible: true, state: icon-up}
+  # END Inferus
 
 #Spationaut Hardsuit
 - type: entity
@@ -179,10 +214,14 @@
     - state: icon
     - state: icon-unshaded
       shader: unshaded
+      map: [ "unshaded_base" ] # Inferus - hardsuit welding visors
     - state: light-overlay
       visible: false
       shader: unshaded
       map: [ "light" ]
+    - state: icon-up # Inferus - hardsuit welding visors
+      visible: false
+      map: [ "visor_icon" ]
   - type: HandheldLight
     addPrefix: false
   - type: ToggleableVisuals
@@ -236,6 +275,24 @@
     tags:
     - CorgiWearable
     - WhitelistChameleon
+  # BEGIN Inferus - hardsuit welding visors
+  - type: HelmetVisor
+    isActive: true
+    components:
+    - type: EyeProtection
+    - type: FlashImmunity
+    - type: ESViewconeModifier # viewcone port, only while the visor is down!!
+      angleModifier: -160
+  - type: GenericVisualizer
+    visuals:
+      enum.HelmetVisorVisuals.IsDown:
+        visor_icon:
+          False: {visible: false}
+          True: {visible: true, state: icon-up}
+        unshaded_base:
+          False: {visible: true}
+          True: {visible: false}
+  # END Inferus
 
 #Salvage Hardsuit
 - type: entity
@@ -452,16 +509,21 @@
   name: chief engineer's hardsuit helmet
   description: Special hardsuit helmet, made for the chief engineer of the station.
   components:
+  # BEGIN Inferus
   - type: Sprite
-    sprite: Clothing/Head/Hardsuits/engineering-white.rsi
+    sprite: _Funkystation/Clothing/Head/Hardsuits/engineering-white.rsi
     layers:
     - state: icon
     - state: icon-unshaded
       shader: unshaded
+      map: [ "unshaded_base" ]
     - state: light-overlay
       visible: false
       shader: unshaded
       map: [ "light" ]
+    - state: icon-up
+      visible: false
+      map: [ "visor_icon" ]
   - type: HandheldLight
     addPrefix: false
   - type: ToggleableVisuals
@@ -476,19 +538,20 @@
       head-reptilian:
       - state: equipped-head-light-reptilian
         shader: unshaded
-      # Begin DeltaV species helmets
       head-vulpkanin:
-      - state: equipped-head-light-reptilian
+      - state: equipped-head-light-vulpkanin
         shader: unshaded
       head-harpy:
-      - state: equipped-head-light-harpy
+      - sprite: Clothing/Head/Hardsuits/engineering-white.rsi
+        state: equipped-head-light-harpy
         shader: unshaded
       head-feroxi:
-      - state: equipped-head-light-feroxi
+      - sprite: Clothing/Head/Hardsuits/engineering-white.rsi
+        state: equipped-head-light-feroxi
         shader: unshaded
-      # End DeltaV species helmets
       head-dog:
-      - state: equipped-head-light-dog
+      - sprite: Clothing/Head/Hardsuits/engineering-white.rsi
+        state: equipped-head-light-dog
         shader: unshaded
   - type: Clothing
     clothingVisuals:
@@ -504,24 +567,29 @@
       - state: equipped-head-reptilian
       - state: equipped-head-unshaded-reptilian
         shader: unshaded
-      head-dog:
-      - state: equipped-head-dog
-      - state: equipped-head-unshaded-dog
-        shader: unshaded
-      # Begin DeltaV species helmets
       head-vulpkanin:
       - state: equipped-head-vulpkanin
       - state: equipped-head-unshaded-vulpkanin
         shader: unshaded
       head-harpy:
-      - state: equipped-head-harpy
-      - state: equipped-head-unshaded
+      - sprite: Clothing/Head/Hardsuits/engineering-white.rsi
+        state: equipped-head-harpy
+      - sprite: Clothing/Head/Hardsuits/engineering-white.rsi
+        state: equipped-head-unshaded
         shader: unshaded
       head-feroxi:
-      - state: equipped-head-feroxi
-      - state: equipped-head-unshaded-feroxi
+      - sprite: Clothing/Head/Hardsuits/engineering-white.rsi
+        state: equipped-head-feroxi
+      - sprite: Clothing/Head/Hardsuits/engineering-white.rsi
+        state: equipped-head-unshaded-feroxi
         shader: unshaded
-      # End DeltaV species helmets
+      head-dog:
+      - sprite: Clothing/Head/Hardsuits/engineering-white.rsi
+        state: equipped-head-dog
+      - sprite: Clothing/Head/Hardsuits/engineering-white.rsi
+        state: equipped-head-unshaded-dog
+        shader: unshaded
+  # END Inferus
   - type: PointLight
     color: "#daffad"
   - type: PressureProtection
@@ -533,6 +601,25 @@
     tags:
     - CorgiWearable
     - WhitelistChameleon
+  # BEGIN Inferus - hardsuit welding visors
+  - type: HelmetVisor
+    isActive: true
+    supportedSuffixes: [ "-reptilian", "-vox", "-vulpkanin" ] # can we get someone to resprite the other species' suits please?
+    components:
+    - type: EyeProtection
+    - type: FlashImmunity
+    - type: ESViewconeModifier # viewcone port, only while the visor is down!!
+      angleModifier: -90
+  - type: GenericVisualizer
+    visuals:
+      enum.HelmetVisorVisuals.IsDown:
+        visor_icon:
+          False: {visible: false}
+          True: {visible: true, state: icon-up}
+        unshaded_base:
+          False: {visible: true}
+          True: {visible: false}
+  # END Inferus
 
 #Chief Medical Officer's Hardsuit
 - type: entity

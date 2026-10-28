@@ -157,6 +157,8 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: ESViewconeOccludable # Inferus - viewcone port
+    occludeIfAnchored: true
   - type: Clickable
   - type: Slippery
     staminaDamage: 0

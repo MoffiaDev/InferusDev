@@ -1,7 +1,9 @@
+using Content.Shared._Funkystation.Clothing.Components; // Inferus
 using Content.Shared.Eye;
 using Content.Shared.Hands;
 using Content.Shared.Interaction;
 using Content.Shared.Inventory.Events;
+using Robust.Shared.Audio.Systems; // Inferus
 using Robust.Shared.GameStates;
 using Robust.Shared.Network;
 using Robust.Shared.Serialization;
@@ -14,6 +16,7 @@ public abstract class SharedTrayScannerSystem : EntitySystem
     [Dependency] private readonly INetManager _netMan = default!;
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
     [Dependency] private readonly SharedEyeSystem _eye = default!;
+    [Dependency] private readonly SharedAudioSystem _audio = default!; // Inferus
 
     public const float SubfloorRevealAlpha = 0.8f;
 
@@ -95,8 +98,20 @@ public abstract class SharedTrayScannerSystem : EntitySystem
         if (args.Handled || !args.Complex)
             return;
 
-        SetScannerEnabled(uid, !scanner.Enabled, scanner);
+        ToggleScanner(uid, args.User, scanner); // Inferus, was SetScannerEnabled(uid, !scanner.Enabled, scanner);
         args.Handled = true;
+    }
+
+    /// <summary>
+    /// Inferus - Toggles the scanner and plays its on/off sound.
+    /// </summary>
+    private void ToggleScanner(EntityUid uid, EntityUid user, TrayScannerComponent scanner)
+    {
+        var isEnabled = !scanner.Enabled;
+        SetScannerEnabled(uid, isEnabled, scanner);
+
+        var sound = isEnabled ? scanner.SoundOn : scanner.SoundOff;
+        _audio.PlayPredicted(sound, uid, user);
     }
 
     private void SetScannerEnabled(EntityUid uid, bool enabled, TrayScannerComponent? scanner = null)
@@ -106,6 +121,17 @@ public abstract class SharedTrayScannerSystem : EntitySystem
 
         scanner.Enabled = enabled;
         Dirty(uid, scanner);
+
+        // BEGIN Inferus
+        if (TryComp(uid, out GoggleShaderComponent? goggleShader))
+        {
+            goggleShader.Enabled = enabled;
+            Dirty(uid, goggleShader);
+
+            var ev = new GoggleShaderToggledEvent(enabled);
+            RaiseLocalEvent(uid, ref ev);
+        }
+        // END Inferus
 
         // We don't remove from _activeScanners on disabled, because the update function will handle that, as well as
         // managing the revealed subfloor entities
@@ -137,7 +163,7 @@ public abstract class SharedTrayScannerSystem : EntitySystem
             return;
 
         // Toggle Logic
-        SetScannerEnabled(scanner, !scanner.Comp.Enabled, scanner);
+        ToggleScanner(scanner, args.Performer, scanner); // Inferus, plays on/off sounds. Was SetScannerEnabled(scanner, !scanner.Comp.Enabled, scanner);
 
         args.Handled = true;
     }

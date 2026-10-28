@@ -1,0 +1,5 @@
+# goggles shader, used by meson goggles (GoggleShader component)
+- type: shader
+  id: Goggles
+  kind: source
+  path: "/Textures/_Funkystation/Shaders/goggles.swsl"

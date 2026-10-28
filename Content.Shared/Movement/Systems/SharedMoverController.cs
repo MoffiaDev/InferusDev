@@ -2,6 +2,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 using Content.Shared._DV.Movement; // DeltaV
 using Content.Shared._DV.NodeCrawl; // DeltaV - Node Crawling
+using Content.Shared._ES.Viewcone; // Inferus - viewcone port
+using Content.Shared._Funkystation.CCVar; // Inferus - viewcone port
 using Content.Shared.ActionBlocker;
 using Content.Shared.CCVar;
 using Content.Shared.Friction;
@@ -52,6 +54,7 @@ public abstract partial class SharedMoverController : VirtualController
     [Dependency] private   readonly TagSystem _tags = default!;
     [Dependency] private   readonly TileMovementSystem _tileMovement = default!; // DeltaV
     [Dependency] private   readonly NodeCrawlerMovementSystem _nodeCrawlerMovement = default!; // DeltaV - node crawling
+    [Dependency] private   readonly ESViewconeEffectSystem _viewconeEffect = default!; // Inferus - viewcone port
 
     protected EntityQuery<CanMoveInAirComponent> CanMoveInAirQuery;
     protected EntityQuery<FootstepModifierComponent> FootstepModifierQuery;
@@ -72,6 +75,7 @@ public abstract partial class SharedMoverController : VirtualController
     protected EntityQuery<NoShoesSilentFootstepsComponent> NoShoesSilentQuery; // DeltaV - NoShoesSilentFootstepsComponent
 
     private static readonly ProtoId<TagPrototype> FootstepSoundTag = "FootstepSound";
+    private static readonly EntProtoId ESFootstepViewconeEffect = "ESViewconeEffectFootstep"; // Inferus - ES viewcone port
 
     private bool _relativeMovement;
     private float _minDamping;
@@ -253,10 +257,12 @@ public abstract partial class SharedMoverController : VirtualController
 
         var moveSpeedComponent = ModifierQuery.CompOrNull(uid);
 
+        var forceWalk = false; // Inferus - viewcone port, forced walking when moving backwards, passed to functions below
         float friction;
         float accel;
         Vector2 wishDir;
         var velocity = physicsComponent.LinearVelocity;
+        var worldRot = _transform.GetWorldRotation(xform); // Inferus - viewcone port, moved up from the rotation block below
 
         // Get current tile def for things like speed/friction mods
         ContentTileDefinition? tileDef = null;
@@ -317,7 +323,21 @@ public abstract partial class SharedMoverController : VirtualController
             var walkSpeed = moveSpeedComponent?.CurrentWalkSpeed ?? MovementSpeedModifierComponent.DefaultBaseWalkSpeed;
             var sprintSpeed = moveSpeedComponent?.CurrentSprintSpeed ?? MovementSpeedModifierComponent.DefaultBaseSprintSpeed;
 
-            wishDir = AssertValidWish(mover, walkSpeed, sprintSpeed);
+            // BEGIN Inferus - viewcone port, if moving backwards, force walking. only applies in the non-weightless path
+            // wishDir = AssertValidWish(mover, walkSpeed, sprintSpeed); // Inferus - replaced below
+            {
+                var backwardsAngle = moveSpeedComponent?.BackwardsAngle ??
+                                     MovementSpeedModifierComponent.ESDefaultBackwardsAngle;
+                var rotNorm = worldRot.ToWorldVec().Normalized();
+                var velNorm = velocity.Normalized();
+                var cosAngle = Vector2.Dot(velNorm, rotNorm);
+                var threshold = new Angle(MathF.PI) - (backwardsAngle / 2);
+
+                forceWalk = _configManager.GetCVar(ViewconeCCVars.ForceWalkBackwards)
+                            && cosAngle < Math.Cos(threshold.Theta);
+                wishDir = AssertValidWish(mover, walkSpeed, sprintSpeed, forceWalk);
+            }
+            // END Inferus
 
             if (wishDir != Vector2.Zero)
             {
@@ -374,12 +394,13 @@ public abstract partial class SharedMoverController : VirtualController
             {
                 // TODO apparently this results in a duplicate move event because "This should have its event run during
                 // island solver"??. So maybe SetRotation needs an argument to avoid raising an event?
-                var worldRot = _transform.GetWorldRotation(xform);
+                // var worldRot = _transform.GetWorldRotation(xform); // Inferus - viewcone port, moved up
 
                 _transform.SetLocalRotation(uid, xform.LocalRotation + wishDir.ToWorldAngle() - worldRot, xform);
             }
 
             if (!weightless && MobMoverQuery.TryGetComponent(uid, out var mobMover) &&
+                mover.Sprinting && !forceWalk && // Inferus - viewcone port, no footsteps on walk
                 TryGetSound(weightless, uid, mover, mobMover, xform, out var sound, tileDef: tileDef))
             {
                 var soundModifier = mover.Sprinting ? InputMoverComponent.SprintingSoundModifier : InputMoverComponent.WalkingSoundModifier;
@@ -397,6 +418,8 @@ public abstract partial class SharedMoverController : VirtualController
                 {
                     _audio.PlayPredicted(sound, uid, uid, audioParams);
                 }
+
+                _viewconeEffect.SpawnEffect(uid, ESFootstepViewconeEffect, wishDir.ToWorldAngle()); // Inferus - viewcone port
             }
         }
     }
@@ -663,9 +686,9 @@ public abstract partial class SharedMoverController : VirtualController
         return sound != null;
     }
 
-    private Vector2 AssertValidWish(InputMoverComponent mover, float walkSpeed, float sprintSpeed)
+    private Vector2 AssertValidWish(InputMoverComponent mover, float walkSpeed, float sprintSpeed, bool forceWalk = false) // Inferus - viewcone port, forceWalk arg
     {
-        var (walkDir, sprintDir) = GetVelocityInput(mover);
+        var (walkDir, sprintDir) = GetVelocityInput(mover, forceWalk); // Inferus - viewcone port, pass forceWalk
 
         var total = walkDir * walkSpeed + sprintDir * sprintSpeed;
 

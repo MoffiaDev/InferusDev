@@ -62,22 +62,31 @@
   name: engineering hardsuit
   description: A special suit that protects against hazardous, low pressure environments. Has radiation shielding.
   components:
+  # BEGIN Inferus
   - type: Sprite
-    sprite: Clothing/OuterClothing/Hardsuits/engineering.rsi
+    sprite: _Funkystation/Clothing/OuterClothing/Hardsuits/engineering.rsi
   - type: Clothing
-    sprite: Clothing/OuterClothing/Hardsuits/engineering.rsi
+    sprite: _Funkystation/Clothing/OuterClothing/Hardsuits/engineering.rsi
     clothingVisuals: # Delta V - Need this for Harpies
       outerClothing:
       - state: equipped-OUTERCLOTHING
+      - state: equipped-OUTERCLOTHING-unshaded
+        shader: unshaded
       outerClothing-harpy:
       - sprite: _DV/Clothing/OuterClothing/Hardsuits/engineering.rsi
         state: equipped-OUTERCLOTHING-harpy
       outerClothing-vox:
       - state: equipped-OUTERCLOTHING-vox
+      - state: equipped-OUTERCLOTHING-unshaded-vox
+        shader: unshaded
       outerClothing-reptilian:
       - state: equipped-OUTERCLOTHING-reptilian
+      - state: equipped-OUTERCLOTHING-unshaded
+        shader: unshaded
       outerClothing-dog:
-      - state: equipped-OUTERCLOTHING-dog
+      - sprite: Clothing/OuterClothing/Hardsuits/engineering.rsi
+        state: equipped-OUTERCLOTHING-dog
+  # END Inferus
   - type: PressureProtection
     highPressureMultiplier: 0.04
     lowPressureMultiplier: 1000
@@ -463,22 +472,31 @@
   name: chief engineer's hardsuit
   description: A special hardsuit that protects against hazardous, low pressure environments, made for the chief engineer of the station.
   components:
+  # BEGIN Inferus
   - type: Sprite
-    sprite: Clothing/OuterClothing/Hardsuits/engineering-white.rsi
+    sprite: _Funkystation/Clothing/OuterClothing/Hardsuits/engineering-white.rsi
   - type: Clothing
-    sprite: Clothing/OuterClothing/Hardsuits/engineering-white.rsi
+    sprite: _Funkystation/Clothing/OuterClothing/Hardsuits/engineering-white.rsi
     clothingVisuals: # Delta V - Need this for Harpies
       outerClothing:
       - state: equipped-OUTERCLOTHING
+      - state: equipped-OUTERCLOTHING-unshaded
+        shader: unshaded
       outerClothing-harpy:
       - sprite: _DV/Clothing/OuterClothing/Hardsuits/engineering-white.rsi
         state: equipped-OUTERCLOTHING-harpy
       outerClothing-vox:
       - state: equipped-OUTERCLOTHING-vox
+      - state: equipped-OUTERCLOTHING-unshaded-vox
+        shader: unshaded
       outerClothing-reptilian:
       - state: equipped-OUTERCLOTHING-reptilian
+      - state: equipped-OUTERCLOTHING-unshaded
+        shader: unshaded
       outerClothing-dog:
-      - state: equipped-OUTERCLOTHING-dog
+      - sprite: Clothing/OuterClothing/Hardsuits/engineering-white.rsi
+        state: equipped-OUTERCLOTHING-dog
+  # END Inferus
   - type: PressureProtection
     highPressureMultiplier: 0.02
     lowPressureMultiplier: 1000
