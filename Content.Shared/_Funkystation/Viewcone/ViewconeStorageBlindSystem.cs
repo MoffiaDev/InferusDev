@@ -1,7 +1,6 @@
 ﻿using Content.Shared._ES.Viewcone.Components;
 using Content.Shared.Storage.Components;
 using Robust.Shared.Containers;
-using Robust.Shared.Network;
 
 namespace Content.Shared._Funkystation.Viewcone;
 
@@ -10,8 +9,6 @@ namespace Content.Shared._Funkystation.Viewcone;
 /// </summary>
 public sealed partial class ViewconeStorageBlindSystem : EntitySystem
 {
-    [Dependency] private INetManager _net = null!;
-
     public override void Initialize()
     {
         base.Initialize();
