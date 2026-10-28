@@ -252,6 +252,15 @@
       types:
         Slash: 5 # Reduce?
   - type: Wagging
+  - type: LanguageKnowledge # Floofstation
+    speaks:
+    - TauCetiBasic
+    - NewKinPidgin
+    understands:
+    - TauCetiBasic
+    - NewKinPidgin
+    - OldKinPidgin
+    naturalLanguage: NewKinPidgin
 
 - type: entity
   parent: OrganBase

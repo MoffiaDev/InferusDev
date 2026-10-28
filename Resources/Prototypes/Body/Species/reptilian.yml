@@ -179,6 +179,14 @@
       295: 0.8
       285: 0.7
   - type: Wagging
+  - type: LanguageKnowledge # Floofstation
+    speaks:
+    - TauCetiBasic
+    - Draconic
+    understands:
+    - TauCetiBasic
+    - Draconic
+    naturalLanguage: Draconic
 
 - type: entity
   parent: OrganBase

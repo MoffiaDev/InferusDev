@@ -66,6 +66,14 @@
     accent: dwarf
   - type: Speech
     speechSounds: Bass
+  - type: LanguageKnowledge # Floofstation
+    speaks:
+    - TauCetiBasic
+    - SolCommon
+    understands:
+    - TauCetiBasic
+    - SolCommon
+    naturalLanguage: SolCommon
 
 - type: entity
   parent: OrganBase

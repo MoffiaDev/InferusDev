@@ -13,7 +13,7 @@ namespace Content.Server.Radio.EntitySystems;
 /// </summary>
 public sealed partial class RadioSystem
 {
-    [Dependency] private readonly SharedLanguageSystem _language = default!;
+    [Dependency] private SharedLanguageSystem _language = default!;
 
     /// <summary>
     /// I hate
@@ -29,7 +29,7 @@ public sealed partial class RadioSystem
         string senderName,
         LanguagePrototype? languageOverride)
     {
-        var msg = new ChatMessage(channel, message, wrappedMessage, GetNetEntity(sender), senderKey);
+        var msg = new ChatMessage(channel, message, wrappedMessage, GetNetEntity(sender), senderKey, radioChannelProto: radioChannel.ID); // Inferus - Languages
         var language = (languageOverride ?? _language.GetLanguage(sender));
         msg.Language = language;
 

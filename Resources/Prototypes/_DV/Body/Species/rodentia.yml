@@ -136,6 +136,14 @@
   - type: DrawDepthVisualizer
     key: enum.SneakingVisuals.Sneaking
     depth: SmallMobs
+  - type: LanguageKnowledge # Floofstation
+    speaks:
+    - TauCetiBasic
+    - Mouse # squeaaak
+    understands:
+    - TauCetiBasic
+    - Mouse
+    naturalLanguage: Mouse
 
 - type: entity
   parent: OrganBase

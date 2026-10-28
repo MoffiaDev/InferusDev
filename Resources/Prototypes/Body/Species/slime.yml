@@ -180,6 +180,14 @@
       types:
         Asphyxiation: -1.0
     maxSaturation: 15
+  - type: LanguageKnowledge # Floofstation
+    speaks:
+    - TauCetiBasic
+    - Bubblish
+    understands:
+    - TauCetiBasic
+    - Bubblish
+    naturalLanguage: Bubblish
 
 - type: entity
   parent: OrganBase

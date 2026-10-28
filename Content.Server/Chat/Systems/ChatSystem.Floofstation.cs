@@ -14,8 +14,8 @@ namespace Content.Server.Chat.Systems;
 /// </summary>
 public sealed partial class ChatSystem
 {
-    [Dependency] private readonly SharedPopupSystem _popups = default!;
-    [Dependency] private readonly HandsSystem _hands = default!;
+    [Dependency] private SharedPopupSystem _popups = default!;
+    [Dependency] private HandsSystem _hands = default!;
 
     /// <summary>
     /// Checks if the entity can currently speak its language. Returns the language it's speaking.

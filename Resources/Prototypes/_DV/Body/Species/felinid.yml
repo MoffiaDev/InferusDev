@@ -130,6 +130,16 @@
     transferRate: 0
     speedModifier: 0.1
     rootSound: "/Audio/Nyanotrasen/Voice/Felinid/cat_growl1.ogg"
+  - type: LanguageKnowledge # Inferus - Languages
+    speaks:
+    - TauCetiBasic
+    - SolCommon
+    - Nekomimetic
+    understands:
+    - TauCetiBasic
+    - SolCommon
+    - Nekomimetic
+    naturalLanguage: SolCommon
 
 
 - type: entity

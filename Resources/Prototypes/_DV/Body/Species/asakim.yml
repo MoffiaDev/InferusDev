@@ -144,13 +144,13 @@
       Male: MaleReptilian
       Female: FemaleReptilian
       Unsexed: MaleReptilian
-  #- type: LanguageKnowledge # DeltaV - ee language port when
-  #  speaks:
-  #  - Draconic
-  #  - Azaziba
-  #  understands:
-  #  - Draconic
-  #  - Azaziba
+  - type: LanguageKnowledge # DeltaV - ee language port when # Floofstation - now
+    speaks:
+    - Draconic
+    - Azaziba
+    understands:
+    - Draconic
+    - Azaziba
   - type: BodyEmotes
     soundsId: ReptilianBodyEmotes
   - type: Damageable
@@ -207,8 +207,9 @@
     factions:
     - Syndicate # Making new AI factions is annoying with all the hostilities I have to add, whatever.
   # Begin DeltaV Additions
-  - type: SyllableObfuscationAccent # unintelligable language
-    accent: draconian
+# Inferus - Languages, Draconic is a real language now
+#  - type: SyllableObfuscationAccent # unintelligable language
+#    accent: draconian
   - type: BlockWriting # can't speak common can't write common. better get an AAC tablet
   # End DeltaV Additions
   - type: NightVision

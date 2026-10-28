@@ -218,6 +218,12 @@
           types:
             Slash: 5
             Piercing: 10
+  - type: LanguageKnowledge # Inferus - Languages
+    speaks:
+    - Dog
+    understands:
+    - Dog
+    - TauCetiBasic
 
 # Split from MobSecDog for random names, allows Laika to be Laika
 - type: entity

@@ -200,6 +200,14 @@
     channels:
     - Rootsong
   # DeltaV changes end
+  - type: LanguageKnowledge # Floofstation
+    speaks:
+    - TauCetiBasic
+    - RootSpeak
+    understands:
+    - TauCetiBasic
+    - RootSpeak
+    naturalLanguage: RootSpeak
 
 - type: entity
   parent: OrganBase

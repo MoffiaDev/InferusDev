@@ -1,6 +1,5 @@
 using System.Linq;
 using Content.Server.Popups;
-using Content.Server.PowerCell;
 using Content.Shared._Floof.Language;
 using Content.Shared._Floof.Language.Components;
 using Content.Shared._Floof.Language.Components.Translators;
@@ -15,12 +14,12 @@ using Robust.Shared.Timing;
 
 namespace Content.Server._Floof.Language;
 
-public sealed class TranslatorSystem : SharedTranslatorSystem
+public sealed partial class TranslatorSystem : SharedTranslatorSystem
 {
-    [Dependency] private readonly SharedContainerSystem _containers = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly LanguageSystem _language = default!;
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
+    [Dependency] private SharedContainerSystem _containers = default!;
+    [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private LanguageSystem _language = default!;
+    [Dependency] private PowerCellSystem _powerCell = default!;
 
     public override void Initialize()
     {

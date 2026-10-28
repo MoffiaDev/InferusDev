@@ -75,7 +75,7 @@ public sealed partial class ChatSystem : SharedChatSystem
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly ReplacementAccentSystem _wordreplacement = default!;
     [Dependency] private readonly ExamineSystemShared _examineSystem = default!;
-    [Dependency] private readonly LanguageSystem _languages = default!; // Starlight: Language prefixes
+    [Dependency] private LanguageSystem _languages = default!; // Starlight: Language prefixes
 
     //Nyano - Summary: pulls in the nyano chat system for psionics.
     [Dependency] private readonly NyanoChatSystem _nyanoChatSystem = default!;
@@ -708,7 +708,7 @@ public sealed partial class ChatSystem : SharedChatSystem
             !TryEmoteChatInput(source, action))
             return;
 
-        SendInVoiceRange(ChatChannel.Emotes, new(action, wrappedMessage), MessageWrapData.Empty, source, range, author); // Inferus - Languages
+        SendInVoiceRange(ChatChannel.Emotes, new(action, wrappedMessage), MessageWrapData.Empty, source, range, author, checkLOS: true); // Inferus - Languages
         if (!hideLog)
             if (name != Name(source))
                 _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Emote from {source} as {name}: {action}");
@@ -757,7 +757,7 @@ public sealed partial class ChatSystem : SharedChatSystem
             !TryEmoteChatInput(source, action))
             return;
 
-        SendInVoiceRange(ChatChannel.Emotes, action, wrappedMessage, source, range, author);
+        SendInVoiceRange(ChatChannel.Emotes, new(action, wrappedMessage), MessageWrapData.Empty, source, range, author); // Inferus - Languages
 
         var ev = new EntityAudiblyEmotedEvent(source, action, channel, type);
         RaiseLocalEvent(source, ref ev, true);
@@ -878,6 +878,9 @@ public sealed partial class ChatSystem : SharedChatSystem
             var entRange = MessageRangeCheck(session, data, range);
             if (entRange == MessageRangeCheckResult.Disallowed)
                 continue;
+
+            if (checkLOS && !data.Observer && !data.InLOS) // Inferus - Languages
+                continue; // Floofstation: some things dont go through walls (but they go through windows!)
 
             var entHideChat = entRange == MessageRangeCheckResult.HideChat;
             // Floofstation edit: check languages
@@ -1028,22 +1031,27 @@ public sealed partial class ChatSystem : SharedChatSystem
 
             var observer = ghostHearing.HasComponent(playerEntity);
 
+            // Inferus Section - Languages
+            var hasDistance = sourceCoords.TryDistance(EntityManager, transformEntity.Coordinates, out var distance);
+            var isVisible = observer || (hasDistance && distance <= voiceGetRange && _examineSystem.InRangeUnOccluded(source, playerEntity, voiceGetRange));
+            // Inferus Section End
+
             // even if they are a ghost hearer, in some situations we still need the range
-            if (sourceCoords.TryDistance(EntityManager, transformEntity.Coordinates, out var distance) && distance < voiceGetRange)
+            if (hasDistance && distance < voiceGetRange) // Inferus - Languages
             {
-                recipients.Add(player, new ICChatRecipientData(distance, observer));
+                recipients.Add(player, new ICChatRecipientData(distance, observer, InLOS: isVisible)); // Inferus - Languages
                 continue;
             }
 
             if (observer)
-                recipients.Add(player, new ICChatRecipientData(-1, true));
+                recipients.Add(player, new ICChatRecipientData(-1, true, InLOS: isVisible)); // Inferus - Languages
         }
 
         RaiseLocalEvent(new ExpandICChatRecipientsEvent(source, voiceGetRange, recipients));
         return recipients;
     }
 
-    public readonly record struct ICChatRecipientData(float Range, bool Observer, bool? HideChatOverride = null)
+    public readonly record struct ICChatRecipientData(float Range, bool Observer, bool? HideChatOverride = null, bool InLOS = true) // Inferus - Languages
     {
     }
 

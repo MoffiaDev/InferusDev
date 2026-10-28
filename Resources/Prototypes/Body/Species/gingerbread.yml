@@ -76,6 +76,13 @@
           - MobLayer
   - type: TypingIndicator
     proto: gingerbread
+  - type: LanguageKnowledge # Floofstation
+    speaks:
+    - Dog
+    - TauCetiBasic
+    understands:
+    - Dog
+    - TauCetiBasic
 
 - type: entity
   parent: OrganBase

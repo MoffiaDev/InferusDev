@@ -117,6 +117,14 @@
     pulseTime: 5
     activateSound: null
     deactivateSound: null
+  - type: LanguageKnowledge # Floofstation
+    speaks:
+    - TauCetiBasic
+    - Nehina
+    understands:
+    - TauCetiBasic
+    - Nehina
+    naturalLanguage: Nehina
 
 - type: entity
   parent: OrganBase

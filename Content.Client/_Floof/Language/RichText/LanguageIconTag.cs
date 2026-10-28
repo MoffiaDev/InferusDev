@@ -15,11 +15,11 @@ using Robust.Shared.Utility;
 namespace Content.Client._Floof.Language.RichText;
 
 [UsedImplicitly]
-public sealed class LanguageIconTag : IMarkupTagHandler
+public sealed partial class LanguageIconTag : IMarkupTagHandler
 {
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] private readonly IEntitySystemManager _sysMan = default!;
+    [Dependency] private IPrototypeManager _protoMan = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
+    [Dependency] private IEntitySystemManager _sysMan = default!;
 
     public const string TagName = "langicon";
     public string Name => TagName;

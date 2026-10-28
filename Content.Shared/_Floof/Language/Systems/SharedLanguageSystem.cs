@@ -9,8 +9,8 @@ namespace Content.Shared._Floof.Language.Systems;
 
 public abstract partial class SharedLanguageSystem : EntitySystem
 {
-    [Dependency] protected readonly IPrototypeManager _prototype = default!;
-    [Dependency] protected readonly SharedGameTicker _ticker = default!;
+    [Dependency] protected IPrototypeManager _prototype = default!;
+    [Dependency] protected SharedGameTicker _ticker = default!;
 
     // Starlight start
     /// <summary>

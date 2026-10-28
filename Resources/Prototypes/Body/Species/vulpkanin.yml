@@ -180,6 +180,14 @@
   - type: TemperatureProtection
     heatingCoefficient: 1.2
     coolingCoefficient: 0.3
+  - type: LanguageKnowledge # Floofstation
+    speaks:
+    - TauCetiBasic
+    - Canilunzt
+    understands:
+    - TauCetiBasic
+    - Canilunzt
+    naturalLanguage: Canilunzt
     # DV - No jumps for Vulpy
 #  - type: JumpAbility
 #    action: ActionVulpkaninGravityJump

@@ -147,6 +147,14 @@
         Heat: 1.5
   - type: TypingIndicator
     proto: alien
+  - type: LanguageKnowledge # Inferus - Languages
+    speaks:
+    - TauCetiBasic
+    - Marish
+    understands:
+    - TauCetiBasic
+    - Marish
+    naturalLanguage: Marish
   # - type: Destructible
   #   thresholds:
   #     - trigger: !type:DamageTypeTrigger
