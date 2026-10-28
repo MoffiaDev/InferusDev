@@ -139,6 +139,10 @@ namespace Content.Shared.Interaction
                     new PointerInputCmdHandler(HandleActivateItemInWorld))
                 .Bind(ContentKeyFunctions.TryPullObject,
                     new PointerInputCmdHandler(HandleTryPullObject))
+                // BEGIN Inferus - viewcone port, rotate to face where the entity menu was opened
+                .Bind(EngineKeyFunctions.UseSecondary,
+                    new PointerInputCmdHandler(ESHandleEntityMenuRotate))
+                // END Inferus
                 .Register<SharedInteractionSystem>();
 
             _rateLimit.Register(RateLimitKey,
@@ -150,6 +154,19 @@ namespace Content.Shared.Interaction
             );
 
             InitializeBlocking();
+        }
+
+        /// <summary>
+        /// Inferus - viewcone port, clientside handles opening the entity menu, but we want to rotate to face it also, which we do in shared.
+        /// </summary>
+        private bool ESHandleEntityMenuRotate(ICommonSession? session, EntityCoordinates coords, EntityUid uid)
+        {
+            if (!ValidateClientInput(session, coords, uid, out var user))
+                return true;
+
+            ValidateInteractAndFace(user.Value, coords);
+
+            return false;
         }
 
         private void RateLimitAlertAdmins(ICommonSession session)

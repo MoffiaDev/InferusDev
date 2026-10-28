@@ -1,4 +1,5 @@
 using Content.Shared._DV.Psionics.Events; // DeltaV - Psionics Refactor
+using Content.Shared._ES.Viewcone.Components; // Inferus - viewcone port
 using Content.Shared.Body.Events;
 using Content.Shared.Damage.Events;
 using Content.Shared.Mobs.Events;
@@ -40,6 +41,8 @@ public sealed partial class StatusEffectsSystem
         SubscribeLocalEvent<StatusEffectContainerComponent, AccentGetEvent>(RelayStatusEffectEvent);
 
         SubscribeLocalEvent<StatusEffectContainerComponent, BleedModifierEvent>(RefRelayStatusEffectEvent);
+
+        SubscribeLocalEvent<StatusEffectContainerComponent, ESViewconeGetAngleModifierEvent>(RelayStatusEffectEvent); // Inferus - viewcone port
 
         // DeltaV Start - Psionics Refactor
         SubscribeLocalEvent<StatusEffectContainerComponent, PsionicPowerUseAttemptEvent>(RefRelayStatusEffectEvent);

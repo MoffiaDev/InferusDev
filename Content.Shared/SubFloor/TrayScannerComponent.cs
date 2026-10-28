@@ -1,3 +1,4 @@
+using Robust.Shared.Audio; // Inferus - Funky meson goggles port
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 
@@ -17,6 +18,20 @@ public sealed partial class TrayScannerComponent : Component
     /// </summary>
     [DataField]
     public float Range = 4f;
+
+    // BEGIN Inferus
+    /// <summary>
+    ///     Sound played when the scanner is turned on.
+    /// </summary>
+    [DataField]
+    public SoundSpecifier? SoundOn;
+
+    /// <summary>
+    ///     Sound played when the scanner is turned off.
+    /// </summary>
+    [DataField]
+    public SoundSpecifier? SoundOff;
+    // END Inferus
 }
 
 [Serializable, NetSerializable]

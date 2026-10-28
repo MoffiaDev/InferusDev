@@ -1,5 +1,6 @@
 using Content.Shared._DV.Overlays; // DeltaV
 using Content.Shared._DV.Psionics.Events; // DeltaV
+using Content.Shared._ES.Viewcone.Components; // Inferus - viewcone port
 using Content.Shared.Armor;
 using Content.Shared.Atmos;
 using Content.Shared.Chat;
@@ -43,6 +44,8 @@ public partial class InventorySystem
 {
     public void InitializeRelay()
     {
+        SubscribeLocalEvent<InventoryComponent, ESViewconeGetAngleModifierEvent>(RefRelayInventoryEvent); // Inferus - viewcone port
+
         SubscribeLocalEvent<InventoryComponent, DamageModifyEvent>(RelayInventoryEvent);
         SubscribeLocalEvent<InventoryComponent, ElectrocutionAttemptEvent>(RelayInventoryEvent);
         SubscribeLocalEvent<InventoryComponent, SlipAttemptEvent>(RelayInventoryEvent);

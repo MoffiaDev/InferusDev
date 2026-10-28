@@ -3,6 +3,7 @@
   id: BaseItem
   abstract: true
   components:
+  - type: ESViewconeOccludable # Inferus - viewcone port
   - type: Item
     size: Small
   - type: Animateable

@@ -1,11 +1,11 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Original by Emisse, modified by EmoGarbage404. Vox states by Flareguy for SS14 | vulpkanin version made by Floofers, Feroxi sprites edited by juniwoofs (Delta-V), Dog states modified from base states by Sparlight (GitHub). Reptilian states by TiniestShark (Github).",
-    "size": {
-        "x": 32,
-        "y": 32
-    },
+  "copyright": "Original by Emisse, modified by EmoGarbage404. Vox states by Flareguy for SS14 | vulpkanin version made by Floofers, Feroxi sprites edited by juniwoofs (Delta-V), Dog states modified from base states by Sparlight (GitHub). Reptilian states by TiniestShark (Github). Visor versions adapted from welding masks by AraiMaia, taken from /vg/station at commit https://github.com/vgstation-coders/vgstation13/commit/31d6576ba8102135d058ef49c3cb6ecbe8db8a79",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
   "states": [
     {
       "name": "icon"
@@ -52,28 +52,51 @@
       "directions": 4
     },
     {
-        "name": "equipped-head-reptilian",
-        "directions": 4
+      "name": "equipped-head-reptilian",
+      "directions": 4
     },
     {
-        "name": "equipped-head-light-reptilian",
-        "directions": 4
+      "name": "equipped-head-light-reptilian",
+      "directions": 4
     },
     {
-        "name": "equipped-head-unshaded-reptilian",
-        "directions": 4
+      "name": "equipped-head-unshaded-reptilian",
+      "directions": 4
     },
     {
-        "name": "equipped-head-dog",
-        "directions": 4
+      "name": "equipped-head-dog",
+      "directions": 4
     },
     {
-        "name": "equipped-head-light-dog",
-        "directions": 4
+      "name": "equipped-head-light-dog",
+      "directions": 4
     },
     {
-        "name": "equipped-head-unshaded-dog",
-        "directions": 4
+      "name": "equipped-head-unshaded-dog",
+      "directions": 4
+    },
+    {
+      "name": "icon-up"
+    },
+    {
+      "name": "equipped-head-up",
+      "directions": 4
+    },
+    {
+      "name": "equipped-head-up-vox",
+      "directions": 4
+    },
+    {
+      "name": "equipped-head-up-vulpkanin",
+      "directions": 4
+    },
+    {
+      "name": "equipped-head-up-reptilian",
+      "directions": 4
+    },
+    {
+      "name": "equipped-head-up-dog",
+      "directions": 4
     }
   ]
 }
