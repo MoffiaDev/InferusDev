@@ -72,3 +72,6 @@
     graph: Bookshelf
     node: bookshelf
   - type: BlockWeather
+  - type: AcousticData # Inferus
+    absorption: 30
+    reflectRay: true

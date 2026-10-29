@@ -1,3 +1,4 @@
+using Content.Shared._Funkystation.Viewcone; // Inferus - Funky viewcone port
 using Content.Shared.MouseRotator;
 using Content.Shared.Movement.Components;
 using Robust.Shared.Audio;
@@ -47,6 +48,7 @@ namespace Content.Shared.CombatMode
         ///     to entities with this flag enabled that enter combat mode, and vice versa for removal.
         /// </summary>
         [DataField, AutoNetworkedField]
+        [Access(typeof(SharedCombatModeSystem), typeof(ViewconeAlwaysFaceCursorSystem))] // Inferus - Funky viewcone port
         public bool ToggleMouseRotator = true;
     }
 }

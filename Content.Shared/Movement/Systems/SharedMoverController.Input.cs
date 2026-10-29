@@ -373,7 +373,8 @@ namespace Content.Shared.Movement.Systems
             SetSprinting((uid, moverComp), subTick, walking);
         }
 
-        public (Vector2 Walking, Vector2 Sprinting) GetVelocityInput(InputMoverComponent mover)
+        // Inferus - viewcone port, forceWalk arg to override mover.Sprinting (used when moving backwards)
+        public (Vector2 Walking, Vector2 Sprinting) GetVelocityInput(InputMoverComponent mover, bool forceWalk = false)
         {
             if (!Timing.InSimulation)
             {
@@ -381,7 +382,7 @@ namespace Content.Shared.Movement.Systems
                 // So return a full-length vector as if it's a full tick.
                 // Physics system will have the correct time step anyways.
                 var immediateDir = DirVecForButtons(mover.HeldMoveButtons);
-                return mover.Sprinting ? (Vector2.Zero, immediateDir) : (immediateDir, Vector2.Zero);
+                return mover.Sprinting && !forceWalk ? (Vector2.Zero, immediateDir) : (immediateDir, Vector2.Zero); // Inferus - viewcone port, check forceWalk
             }
 
             Vector2 walk;
@@ -403,7 +404,7 @@ namespace Content.Shared.Movement.Systems
 
             var curDir = DirVecForButtons(mover.HeldMoveButtons) * remainingFraction;
 
-            if (mover.Sprinting)
+            if (mover.Sprinting && !forceWalk) // Inferus - viewcone port, check forceWalk
             {
                 sprint += curDir;
             }

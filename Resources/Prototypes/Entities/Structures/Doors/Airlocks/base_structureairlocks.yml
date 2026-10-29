@@ -190,6 +190,9 @@
     prob: 0.25
     count: 2
 # ES END
+  - type: AcousticData # Inferus
+    absorption: 10
+    reflectRay: true
   placement:
     mode: SnapgridCenter
 

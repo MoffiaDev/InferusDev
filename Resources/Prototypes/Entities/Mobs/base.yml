@@ -75,6 +75,11 @@
   id: MobDamageable
   abstract: true
   components:
+  # BEGIN Inferus - viewcone port
+  - type: ESViewcone
+  - type: ESViewconeOccludable
+  - type: ViewconeBlindness
+  # END Inferus
   - type: Damageable
     damageContainer: Biological
   - type: Destructible

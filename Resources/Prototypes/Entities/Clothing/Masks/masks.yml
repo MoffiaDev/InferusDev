@@ -4,6 +4,8 @@
   name: gas mask
   description: A face-covering mask that can be connected to an air supply.
   components:
+  - type: ESViewconeModifier # Inferus - viewcone port
+    angleModifier: -90
   - type: Sprite
     sprite: Clothing/Mask/gas.rsi
   - type: Clothing
@@ -26,6 +28,8 @@
   name: security breath mask # Delta-V - Changed the name and description for the basegame Security gas mask, seeing as this really doesn't look like an actual gas mask.
   description: A standard issue armored breath mask for NanoTrasen Security. # Delta-V
   components:
+  - type: ESViewconeModifier # Inferus - viewcone port
+    angleModifier: -20
   - type: Item
     size: Tiny
   - type: Sprite
@@ -46,6 +50,8 @@
   name: syndicate gas mask
   description: A close-fitting tactical mask that can be connected to an air supply.
   components:
+  - type: ESViewconeModifier # Inferus - ES viewcone port
+    angleModifier: -35
   - type: Sprite
     sprite: Clothing/Mask/gassyndicate.rsi
   - type: Clothing
@@ -107,6 +113,8 @@
   name: explorer gas mask
   description: A military-grade gas mask that can be connected to an air supply.
   components:
+  - type: ESViewconeModifier # Inferus - viewcone port
+    angleModifier: -35
   - type: Sprite
     sprite: Clothing/Mask/gasexplorer.rsi
   - type: Clothing
@@ -746,6 +754,8 @@
   name: welding gas mask
   description: A gas mask with built in welding goggles and face shield. Looks like a skull, clearly designed by a nerd.
   components:
+  - type: ESViewconeModifier # Inferus - viewcone port
+    angleModifier: -90
   - type: Sprite
     sprite: Clothing/Mask/welding-gas.rsi
     state: icon

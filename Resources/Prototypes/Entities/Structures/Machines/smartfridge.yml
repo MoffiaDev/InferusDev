@@ -117,6 +117,9 @@
   - type: ExplosionResistance
     damageCoefficient: 0.1
   - type: Airtight
+  - type: AcousticData # Inferus
+    absorption: 20
+    reflectRay: true
 
 - type: entity
   parent: SmartFridge

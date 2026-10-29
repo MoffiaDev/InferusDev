@@ -6,6 +6,7 @@
   save: false
   abstract: true
   components:
+  - type: ESViewconeOccludable # Inferus - viewcone port
   - type: Reactive
     groups:
       Acidic: [Touch]

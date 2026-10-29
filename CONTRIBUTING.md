@@ -20,6 +20,18 @@ Examples:
 - `Resources/ServerInfo/Guidebook/_Inferus/AlertProcedure.xml`
   Note that guidebooks go in `ServerInfo/Guidebook/_Inferus` and not `ServerInfo/_Inferus`!
 
+# Porting from other forks
+
+You wanna bring some content/tweaks over from another fork? Funky? Euphoria? RMC? That's great! You just need to know a few things first.
+
+Inferus has a few licenses that you *must* follow, those being the MIT and AGPL licenses. You don't need to worry about the AGPL license, as that covers code that forks might take from us.
+However, you must ensure that the fork you are porting content from is *also* MIT-licensed. That makes sure that we don't get into any legal trouble with porting stuff.
+
+Sprites, on the other hand, are typically all licensed the same, UNLESS specified otherwise.
+Sprite copyright can be found in the `meta.json` file located in their RSI folders, they're usually licensed under CC-BY-SA-3.0, CC-BY-NC-SA-4.0, or CC-BY-SA-4.0. These are fine to port.
+
+Porting sprites is easy enough on its own, HOWEVER, if the code behind those sprites is different, you must do what's called a **cleanroom implementation**, in which you have to write the code from scratch and license it under AGPL in order for it to be used.
+
 # Changes to upstream files
 
 Follow a few guidelines when modifying non-Inferus files, to help us manage our project. (files that are not in `_Inferus` folders)

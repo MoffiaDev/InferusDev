@@ -98,6 +98,9 @@
   - type: StaticPrice
     price: 100
   - type: BlockWeather
+  - type: AcousticData # Inferus
+    absorption: 10
+    reflectRay: true
 
 - type: entity
   parent: Window
@@ -224,6 +227,9 @@
       sprite: Structures/Windows/cracks_directional.rsi
   - type: StaticPrice
     price: 15
+  - type: AcousticData # Inferus
+    absorption: 6
+    reflectRay: true
 
 - type: entity
   id: WindowDirectionalRCDResistant

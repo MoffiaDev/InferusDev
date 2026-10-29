@@ -51,6 +51,8 @@
     - TauCetiBasic
     - Binary
     naturalLanguage: Binary
+  - type: AcousticData # Inferus
+    absorption: 15
 
 - type: entity
   abstract: true

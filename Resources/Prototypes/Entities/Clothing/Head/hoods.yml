@@ -5,6 +5,8 @@
   suffix: Generic
   description: A hood that protects the head and face from biological contaminants.
   components:
+  - type: ESViewconeModifier # Inferus - viewcone port
+    angleModifier: -90
   - type: Sprite
     sprite: Clothing/Head/Hoods/Bio/general.rsi
   - type: Clothing
@@ -155,6 +157,8 @@
   name: radiation hood
   description: A hood of the hazmat suit, designed for protection from high radioactivity.
   components:
+  - type: ESViewconeModifier # Inferus - viewcone port
+    angleModifier: -90
   - type: Sprite
     sprite: Clothing/Head/Hoods/rad.rsi
   - type: Clothing

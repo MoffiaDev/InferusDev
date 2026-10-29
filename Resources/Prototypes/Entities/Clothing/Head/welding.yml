@@ -1,15 +1,17 @@
 - type: entity
-  parent: ClothingHeadBase
+  parent: [ ClothingHeadBase, BaseToggleClothing ] # Inferus - flippable welding masks, added BaseToggleClothing
   id: WeldingMaskBase
   name: welding mask
   abstract: true
   components:
   - type: Item
     storedRotation: 0
-  - type: IngestionBlocker
-  - type: FlashImmunity
-  - type: IdentityBlocker
-  - type: EyeProtection
+  # BEGIN Inferus - flippable welding masks, moved into the ComponentToggler below so they only apply while the mask is down
+  # - type: IngestionBlocker
+  # - type: FlashImmunity
+  # - type: IdentityBlocker
+  # - type: EyeProtection
+  # END Inferus
   - type: PhysicalComposition
     materialComposition:
       Steel: 200
@@ -23,6 +25,34 @@
   - type: HideLayerClothing
     slots:
     - Snout
+  # BEGIN Inferus - flippable welding masks
+  - type: ToggleClothing
+    action: ActionToggleWeldingMask
+    mustEquip: false
+  - type: ItemToggle
+    activated: true
+  - type: ComponentToggler
+    components:
+    - type: IngestionBlocker
+    - type: FlashImmunity
+    - type: IdentityBlocker
+    - type: EyeProtection
+    - type: ESViewconeModifier # viewcone port, only while the mask is down!!
+      angleModifier: -160
+  - type: ItemTogglePrefix
+    prefixOn: null
+    prefixOff: up
+  - type: ToggleClothingPrefix
+    prefixOn: null
+    prefixOff: up
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ToggleableVisuals.Enabled:
+        enum.ToggleableVisuals.Layer:
+          True: {state: icon}
+          False: {state: icon-up}
+  # END Inferus
 
 - type: entity
   parent: WeldingMaskBase
@@ -32,6 +62,9 @@
   components:
   - type: Sprite
     sprite: Clothing/Head/Welding/welding.rsi
+    layers: # Inferus - flippable welding masks
+    - state: icon
+      map: [ "enum.ToggleableVisuals.Layer" ]
   - type: Clothing
     sprite: Clothing/Head/Welding/welding.rsi
   - type: Tag
@@ -48,6 +81,9 @@
   components:
   - type: Sprite
     sprite: Clothing/Head/Welding/flame_welding_mask.rsi
+    layers: # Inferus - flippable welding masks
+    - state: icon
+      map: [ "enum.ToggleableVisuals.Layer" ]
   - type: Clothing
     sprite: Clothing/Head/Welding/flame_welding_mask.rsi
 
@@ -59,6 +95,9 @@
   components:
   - type: Sprite
     sprite: Clothing/Head/Welding/blue_flame_welding_mask.rsi
+    layers: # Inferus - flippable welding masks
+    - state: icon
+      map: [ "enum.ToggleableVisuals.Layer" ]
   - type: Clothing
     sprite: Clothing/Head/Welding/blue_flame_welding_mask.rsi
 
@@ -70,5 +109,8 @@
   components:
   - type: Sprite
     sprite: Clothing/Head/Welding/paintedwelding.rsi
+    layers: # Inferus - flippable welding masks
+    - state: icon
+      map: [ "enum.ToggleableVisuals.Layer" ]
   - type: Clothing
     sprite: Clothing/Head/Welding/paintedwelding.rsi

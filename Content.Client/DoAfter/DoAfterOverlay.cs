@@ -78,6 +78,9 @@ public sealed class DoAfterOverlay : Overlay
             if (xform.MapID != args.MapId)
                 continue;
 
+            if (!sprite.Visible) // Inferus - viewcone port, hide doafters of entities hidden by the viewcone
+                continue;
+
             if (comp.DoAfters.Count == 0)
                 continue;
 
