@@ -19,6 +19,18 @@
     state: catwalk_preview
   - type: Transform
     anchored: true
+  - type: Physics # Inferus
+    bodyType: Static
+  - type: Fixtures # Inferus
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 5
+        hard: false
+        layer:
+        - DoorPassable
   - type: IconSmooth
     key: catwalk
     base: catwalk_
@@ -60,3 +72,5 @@
     cost: 2
     delay: 2
     fx: EffectRCDDeconstruct2
+  - type: AcousticData # Inferus
+    absorption: -8

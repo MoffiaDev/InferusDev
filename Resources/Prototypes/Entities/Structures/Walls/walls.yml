@@ -55,6 +55,9 @@
     resistance: 2
   - type: BlockWeather
   - type: SunShadowCast
+  - type: AcousticData # Inferus
+    absorption: 5
+    reflectRay: true
 
 - type: entity
   abstract: true
@@ -1348,6 +1351,9 @@
   - type: IconSmooth
     key: woods
     base: wood
+  - type: AcousticData # Inferus
+    absorption: 12
+    reflectRay: true
   - type: CosmicCorruptible # DeltaV - Cosmic Cult
     convertTo: WallCosmicCult
 
@@ -1399,6 +1405,9 @@
   - type: Construction
     graph: WebStructures
     node: wall
+  - type: AcousticData # Inferus
+    absorption: 22
+    reflectRay: true
 
 
 # Lavalend Walls

@@ -56,6 +56,9 @@
                   max: 1
             - !type:DoActsBehavior
               acts: [ "Destruction" ]
+    - type: AcousticData # Inferus
+      absorption: -10
+      reflectRay: true
 
 - type: entity
   id: CrystalPink
