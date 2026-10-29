@@ -75,11 +75,13 @@
   description: trait-NaturalBinary-desc
   category: NaturalLanguages
   cost: 0
-  conditions:
-  - !type:OneOfSpeciesCondition
-    invert: true
-    species:
-    - IPC
+  # Inferus Section - Languages, no IPC here
+  # conditions:
+  # - !type:OneOfSpeciesCondition
+  #   invert: true
+  #   species:
+  #   - IPC
+  # Inferus Section End
   effects:
   - !type:ReplaceNaturalLanguageTraitEffect
     language: Binary
@@ -197,11 +199,13 @@
   description: trait-NaturalSchechi-desc
   category: NaturalLanguages
   cost: 0
-  conditions:
-  - !type:OneOfSpeciesCondition
-    invert: true
-    species:
-    - Resomi
+  # Inferus Section - Languages, no Resomi here
+  # conditions:
+  # - !type:OneOfSpeciesCondition
+  #   invert: true
+  #   species:
+  #   - Resomi
+  # Inferus Section End
   effects:
   - !type:ReplaceNaturalLanguageTraitEffect
     language: Schechi

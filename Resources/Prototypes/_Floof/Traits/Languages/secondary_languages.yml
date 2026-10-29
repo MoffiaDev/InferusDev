@@ -78,11 +78,13 @@
   description: trait-Binary-desc
   category: Languages
   cost: 1
-  conditions:
-  - !type:OneOfSpeciesCondition
-    invert: true
-    species:
-    - IPC
+  # Inferus Section - Languages, no IPC here
+  # conditions:
+  # - !type:OneOfSpeciesCondition
+  #   invert: true
+  #   species:
+  #   - IPC
+  # Inferus Section End
   effects:
   - !type:ModifyLanguagesTraitEffect
     languagesSpoken:
@@ -169,11 +171,13 @@
   description: trait-Schechi-desc
   category: Languages
   cost: 1
-  conditions:
-  - !type:OneOfSpeciesCondition
-    invert: true
-    species:
-    - Resomi
+  # Inferus Section - Languages, no Resomi here
+  # conditions:
+  # - !type:OneOfSpeciesCondition
+  #   invert: true
+  #   species:
+  #   - Resomi
+  # Inferus Section End
   effects:
   - !type:ModifyLanguagesTraitEffect
     languagesSpoken:
@@ -259,7 +263,7 @@
   conditions:
   - !type:OneOfSpeciesCondition
     species:
-    - Tajaran
+    # - Tajaran # Inferus - Languages
     - Felinid
     - Vulpkanin
     - Rodentia
@@ -280,7 +284,7 @@
   conditions:
   - !type:OneOfSpeciesCondition
     species:
-    - Tajaran
+    # - Tajaran # Inferus - Languages
     - Felinid
     - Vulpkanin
     - Rodentia
