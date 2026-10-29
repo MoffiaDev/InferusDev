@@ -9,6 +9,12 @@
 ## Technical details
 <!-- Summary of code changes for easier review. -->
 
+## Testing Procedure
+<!-- If this PR features ANY changes in-game, please elaborate on how to test them. -->
+
+# How To Disable
+<!-- This is generally for content that can be seitched off via CVar. Don't include this section if it does not apply. -->
+
 ## Media
 <!-- Attach media if the PR makes in-game changes (clothing, items, features, etc).
 Small fixes/refactors are exempt. -->
