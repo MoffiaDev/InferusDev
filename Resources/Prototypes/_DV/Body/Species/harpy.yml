@@ -164,6 +164,14 @@
     - DoorBumpOpener
     - AnomalyHost
     - OviniaEmotes
+  - type: LanguageKnowledge # Floofstation
+    speaks:
+    - TauCetiBasic
+    - ValyrianStandard
+    understands:
+    - TauCetiBasic
+    - ValyrianStandard
+    naturalLanguage: ValyrianStandard
 
 - type: entity
   parent: OrganBase

@@ -93,6 +93,18 @@
         HorizontalExpand="True"
         AppendStyleClass="{x:Static style:StyleClass.ButtonSquare}"
         />
+    <!-- Floofstation section -->
+    <ui:MenuButton
+        Name="LanguageButton"
+        Access="Internal"
+        Icon="{xe:Tex '/Textures/_Floof/Interface/language.png'}"
+        BoundKey = "{x:Static is:ContentKeyFunctions.OpenLanguageMenu}"
+        ToolTip="Open the Language Menu"
+        MinSize="42 64"
+        HorizontalExpand="True"
+        AppendStyleClass="{x:Static style:StyleClass.ButtonSquare}"
+        />
+    <!-- Floofstation section end -->
     <!-- DeltaV - Add CHelp -->
     <ui:MenuButton
         Name="CHelpButton"

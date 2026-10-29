@@ -1,0 +1,263 @@
+# Languages spoken by various critters.
+- type: language
+  id: Bee
+  parent: BaseAnimalLanguage
+  chatPrefix: bee # Euphoria/Starlight
+  obfuscation:
+    !type:SyllableObfuscation
+    minSyllables: 1
+    maxSyllables: 3
+    replacement:
+    - bz
+    - zz
+    - bzt
+    - bzz
+
+- type: language
+  id: Cat
+  parent: BaseAnimalLanguage
+  chatPrefix: fel # Euphoria/Starlight
+  icon: { state: felidae }
+  obfuscation:
+    !type:SyllableObfuscation
+    minSyllables: 1
+    maxSyllables: 2
+    replacement:
+    - murr
+    - meow
+    - purr
+    - mrow
+
+- type: language
+  id: Dog
+  parent: BaseAnimalLanguage
+  chatPrefix: dog # Euphoria/Starlight ## ^can is already used by canilunzt
+  obfuscation:
+    !type:SyllableObfuscation
+    minSyllables: 1
+    maxSyllables: 2
+    replacement:
+    - woof
+    - bark
+    - ruff
+    - bork
+    - raff
+    - garr
+
+- type: language
+  id: Fox
+  parent: BaseAnimalLanguage
+  chatPrefix: vul # Euphoria/Starlight
+  obfuscation:
+    !type:SyllableObfuscation
+    minSyllables: 1
+    maxSyllables: 2
+    replacement:
+    - ruff
+    - raff
+    - garr
+    - yip
+    - yap
+    - myah
+
+- type: language
+  id: Xeno
+  parent: BaseAnimalLanguage
+  chatPrefix: xen # Euphoria/Starlight
+  obfuscation:
+    !type:SyllableObfuscation
+    minSyllables: 1
+    maxSyllables: 8 # I was crazy once
+    replacement:
+    - s
+    - S
+
+- type: language
+  id: Monkey
+  parent: BaseAnimalLanguage
+  chatPrefix: sim # Euphoria/Starlight
+  obfuscation:
+    !type:SyllableObfuscation
+    minSyllables: 1
+    maxSyllables: 8 # They locked me in a room...
+    replacement:
+    - o
+    - k
+
+- type: language
+  id: Mouse
+  parent: BaseAnimalLanguage
+  chatPrefix: mou # Euphoria/Starlight
+  isVisibleLanguage: true
+  icon: { state: mouse }
+  obfuscation:
+    !type:SyllableObfuscation
+    minSyllables: 2
+    maxSyllables: 3
+    replacement:
+    - squ
+    - eak
+    - pi
+    - ep
+    - chuu
+    - ee
+    - fwi
+    - he
+
+- type: language
+  id: Chicken
+  parent: BaseAnimalLanguage
+  chatPrefix: chk # Euphoria/Starlight
+  obfuscation:
+    !type:SyllableObfuscation
+    minSyllables: 1
+    maxSyllables: 3
+    replacement:
+    - co
+    - coo
+    - ot
+
+- type: language
+  id: Duck
+  parent: BaseAnimalLanguage
+  chatPrefix: qaq # Euphoria/Starlight ## mind's reflection :3
+  obfuscation:
+    !type:SyllableObfuscation
+    minSyllables: 1
+    maxSyllables: 3
+    replacement:
+    - qu
+    - ack
+    - quack
+
+- type: language
+  id: Cow
+  parent: BaseAnimalLanguage
+  chatPrefix: cow # Euphoria/Starlight
+  obfuscation:
+    !type:SyllableObfuscation
+    minSyllables: 1
+    maxSyllables: 3
+    replacement:
+    - moo
+    - mooo
+
+- type: language
+  id: Sheep
+  parent: BaseAnimalLanguage
+  chatPrefix: shp # Euphoria/Starlight
+  obfuscation:
+    !type:SyllableObfuscation
+    minSyllables: 1
+    maxSyllables: 3
+    replacement:
+    - ba
+    - baa
+    - aa
+
+- type: language
+  id: Kangaroo
+  parent: BaseAnimalLanguage
+  chatPrefix: kan # Euphoria/Starlight
+  obfuscation:
+    !type:SyllableObfuscation
+    minSyllables: 1
+    maxSyllables: 3
+    replacement:
+    - shre
+    - ack
+    - chuu
+    - choo
+
+- type: language
+  id: Pig
+  parent: BaseAnimalLanguage
+  chatPrefix: pig # Euphoria/Starlight
+  obfuscation:
+    !type:SyllableObfuscation
+    minSyllables: 1
+    maxSyllables: 3
+    replacement:
+    - oink # Please someone come up with something better
+
+- type: language
+  id: Crab
+  parent: BaseAnimalLanguage
+  chatPrefix: crb # Euphoria/Starlight
+  obfuscation:
+    !type:SyllableObfuscation
+    minSyllables: 1
+    maxSyllables: 3
+    replacement:
+    - click
+    - clack
+    - ti
+    - pi
+    - tap
+    - cli
+    - ick
+
+- type: language
+  id: Kobold
+  parent: BaseAnimalLanguage
+  chatPrefix: drc # Euphoria/Starlight
+  isVisibleLanguage: true
+  obfuscation:
+    !type:SyllableObfuscation
+    minSyllables: 2
+    maxSyllables: 4
+    replacement:
+    - yip
+    - yap
+    - gar
+    - grr
+    - ar
+    - scre
+    - et
+    - gronk
+    - hiss
+    - ss
+    - ee
+
+- type: language
+  id: Hissing
+  parent: BaseAnimalLanguage
+  chatPrefix: hss # Euphoria/Starlight
+  obfuscation:
+    !type:SyllableObfuscation
+    minSyllables: 2
+    maxSyllables: 4
+    replacement:
+    - hss
+    - iss
+    - ss
+    - is
+
+- type: language
+  id: Penguin
+  parent: BaseAnimalLanguage
+  chatPrefix: png # Euphoria/Starlight
+  obfuscation:
+    !type:SyllableObfuscation
+    minSyllables: 2
+    maxSyllables: 3
+    replacement: # I'm out of ideas
+    - pen
+    - peng
+    - won
+    - wonk
+    - wong
+
+- type: language
+  id: Scurret
+  parent: BaseAnimalLanguage
+  chatPrefix: waw # Euphoria/Starlight
+  obfuscation:
+    !type:SyllableObfuscation
+    minSyllables: 1
+    maxSyllables: 4
+    replacement: # wa
+    - wa
+    - waa
+    - wawa
+    - aw

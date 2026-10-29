@@ -110,6 +110,14 @@
     damageModifierSet: Oni
   - type: Stamina
     baseCritThreshold: 115
+  - type: LanguageKnowledge # Inferus - Languages
+    speaks:
+    - TauCetiBasic
+    - Kagebun
+    understands:
+    - TauCetiBasic
+    - Kagebun
+    naturalLanguage: Kagebun
 
 - type: entity
   parent: OrganBase

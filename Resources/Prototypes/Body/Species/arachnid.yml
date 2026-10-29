@@ -137,6 +137,14 @@
       Unsexed: UnisexArachnid
   - type: TypingIndicator
     proto: spider
+  - type: LanguageKnowledge # Floofstation
+    speaks:
+    - TauCetiBasic
+    - Arachnic
+    understands:
+    - TauCetiBasic
+    - Arachnic
+    naturalLanguage: Arachnic
 
 - type: entity
   parent: OrganBase

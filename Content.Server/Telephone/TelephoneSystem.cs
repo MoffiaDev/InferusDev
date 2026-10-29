@@ -22,6 +22,7 @@ using Robust.Shared.Random;
 using Robust.Shared.Replays;
 using System.Linq;
 using Content.Shared._DV.Pager; // DeltaV - pagers
+using Content.Server._Floof.Language;
 
 namespace Content.Server.Telephone;
 
@@ -38,6 +39,7 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
     [Dependency] private readonly IAdminLogManager _adminLogger = default!;
     [Dependency] private readonly IReplayRecordingManager _replay = default!;
     [Dependency] private readonly PageSenderSystem _pageSender = default!; // DeltaV - pagers
+    [Dependency] private readonly LanguageSystem _languages = default!; // Floofstation
 
     // Has set used to prevent telephone feedback loops
     private HashSet<(EntityUid, string, Entity<TelephoneComponent>)> _recentChatMessages = new();
@@ -115,6 +117,10 @@ public sealed class TelephoneSystem : SharedTelephoneSystem
 
         var range = args.TelephoneSource.Comp.LinkedTelephones.Count > 1 ? ChatTransmitRange.HideChat : ChatTransmitRange.GhostRangeLimit;
         var volume = entity.Comp.SpeakerVolume == TelephoneVolume.Speak ? InGameICChatType.Speak : InGameICChatType.Whisper;
+
+        // Floofstation - telephones preserve languages. Just like with cameras, this solution will break if delays get introduced.
+        // Also, since the system raising this event doesn't call RadioSystem.MakeChatMsg, ChatMessage.Language is null.
+        using var _ = _languages.SubstituteEntityLanguage(speaker, _languages.GetLanguage(args.MessageSource));
 
         _chat.TrySendInGameICMessage(speaker, args.Message, volume, range, nameOverride: name, checkRadioPrefix: false);
     }

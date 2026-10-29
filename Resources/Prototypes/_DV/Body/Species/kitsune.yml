@@ -134,6 +134,14 @@
     - 0,0,1,4
     - 0,2,3,4
     - 4,0,5,4
+  - type: LanguageKnowledge # Floofstation
+    speaks:
+    - TauCetiBasic
+    - Kagebun
+    understands:
+    - TauCetiBasic
+    - Kagebun
+    naturalLanguage: Kagebun
 
 - type: entity
   parent: OrganBase

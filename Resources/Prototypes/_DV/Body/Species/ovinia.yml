@@ -138,6 +138,14 @@
     baseDecayRate: 0.026 #25% slower than normal (chewin they cud)
   - type: Thirst
     baseDecayRate: 0.075 #25% slower than normal
+  - type: LanguageKnowledge # Floofstation.
+    speaks:
+    - TauCetiBasic
+    - Sheep # Fun fact: the sheep language was unused on EE.
+    understands:
+    - TauCetiBasic
+    - Sheep
+    naturalLanguage: Sheep
 
 - type: entity
   parent: OrganBase

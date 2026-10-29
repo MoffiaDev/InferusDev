@@ -164,6 +164,14 @@
     softness: 5
     color: "#2CFA1F"
     autoRot: true
+  - type: LanguageKnowledge # Floofstation
+    speaks:
+    - TauCetiBasic
+    - Chittin
+    understands:
+    - TauCetiBasic
+    - Chittin
+    naturalLanguage: Chittin
 
 - type: entity
   parent: OrganBase

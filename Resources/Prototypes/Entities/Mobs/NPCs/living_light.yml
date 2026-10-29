@@ -100,6 +100,7 @@
           - !type:PlaySoundBehavior
             sound:
               collection: GlassBreak
+  - type: UniversalLanguageSpeaker # Floofstation
 
 - type: entity
   id: MobLuminousPerson

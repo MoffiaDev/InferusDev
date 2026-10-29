@@ -1,0 +1,57 @@
+# Giving up your primary language gives you points to learn other languages
+- type: trait
+  id: ForeignerLight
+  name: trait-foreigner-light-name
+  description: trait-foreigner-light-desc
+  category: Languages
+  cost: -2
+  priority: -1 # Give way for natural language traits
+  conditions:
+  - !type:TraitDependencyCondition
+    conflicts:
+    - Foreigner
+    - Muted # If you are muted, losing the ability to speak the common tongue has literally no effect
+    - ForeignOrigin
+  - !type:HasCompCondition
+    component: LanguageKnowledge
+  effects:
+  - !type:ForeignerTraitEffect
+    baseLanguage: TauCetiBasic
+    cantUnderstand: false
+    baseTranslator: TranslatorForeigner
+
+- type: trait
+  id: Foreigner
+  name: trait-foreigner-name
+  description: trait-foreigner-desc
+  category: Languages
+  cost: -4
+  priority: -1 # Give way for natural language traits
+  conditions:
+  - !type:TraitDependencyCondition
+    conflicts:
+    - ForeignerLight
+    - ForeignOrigin
+  - !type:HasCompCondition
+    component: LanguageKnowledge
+  effects:
+  - !type:ForeignerTraitEffect
+    baseLanguage: TauCetiBasic
+    baseTranslator: TranslatorForeigner
+
+- type: trait
+  id: ForeignOrigin
+  name: trait-foreign-origin-name
+  description: trait-foreign-origin-desc
+  category: Languages
+  cost: -1
+  priority: 1
+  conditions:
+  - !type:TraitDependencyCondition
+    conflicts:
+    - Foreigner
+    - ForeignerLight
+  - !type:HasCompCondition
+    component: LanguageKnowledge
+  effects:
+  - !type:RemoveSpeciesLanguageEffect

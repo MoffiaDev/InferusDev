@@ -93,6 +93,14 @@
     spawned:
     - id: FoodMeatHuman
       amount: 5
+  - type: LanguageKnowledge # Floofstation
+    speaks:
+    - TauCetiBasic
+    - SolCommon
+    understands:
+    - TauCetiBasic
+    - SolCommon
+    naturalLanguage: SolCommon
 
 - type: entity
   parent: OrganBase

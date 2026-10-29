@@ -18,6 +18,12 @@
     tags:
     - CannotSuicide
     - VimPilot
+  - type: LanguageKnowledge # Floofstation - omg fox!
+    speaks:
+    - Fox
+    understands:
+    - Fox
+    - TauCetiBasic
 
 - type: entity
   name: Laika
@@ -56,6 +62,12 @@
   - type: TemperatureDamage
     heatDamageThreshold: 315 # 10 lower than base
     coldDamageThreshold: 240 # 20 lower than base
+  - type: LanguageKnowledge # Floofstation - pets understand tau-ceti.
+    speaks:
+    - Dog
+    understands:
+    - Dog
+    - TauCetiBasic
 
 - type: entity
   parent: MobCarp
@@ -96,6 +108,12 @@
     description: "The real brains behind the Justice department. Your honour my client is not fishy!"
     job: RoleCarpy
   - type: GhostTakeoverAvailable
+  - type: LanguageKnowledge # Floofstation. Pets understand tau-ceti.
+    speaks:
+    - Xeno
+    understands:
+    - Xeno
+    - TauCetiBasic
   - type: Hands
   - type: DVInnateTools
     tools: !type:AllSelector
@@ -232,8 +250,8 @@
         reagents:
         - ReagentId: Omnizine
           Quantity: 1
-    - type: ReplacementAccent
-      accent: xeno #Add cool snake accent later. wyci
+    #- type: ReplacementAccent # Floofstation - disbaled to let them speak langauges like other station pets
+    #  accent: xeno #Add cool snake accent later. wyci
     - type: PointLight
       radius: 1.1
       energy: 0.25
@@ -275,6 +293,14 @@
       - FootstepSound
     - type: StealTarget
       stealGroup: AnimalSilvia
+    - type: LanguageKnowledge # Floofstation. Pets understand tau-ceti.
+      speaks:
+      - Hissing
+      - Draconic
+      understands:
+      - Hissing
+      - Draconic
+      - TauCetiBasic
 
 - type: entity
   parent: MobBaseScurret

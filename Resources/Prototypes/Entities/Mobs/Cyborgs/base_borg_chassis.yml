@@ -170,6 +170,16 @@
       Unsexed: UnisexSilicon
     wilhelm: "/Audio/_DV/Machines/robotwilhelm.ogg" # DeltaV - "There seems to be someone among us".
     wilhelmProbability: 0.001 # DeltaV
+  # Floofstation section
+  - type: LanguageKnowledge # The borg doesn't understand much unless they have a brain
+    speaks:
+    - Binary
+    understands:
+    - Binary
+    naturalLanguage: Binary
+  - type: ContainerLanguageRelay
+    containerName: borg_brain
+  # Floofstation section end
   - type: DamagedSiliconAccent
   - type: UnblockableSpeech
   - type: FootstepModifier
@@ -604,3 +614,11 @@
     bypassDelay: 15 # We don't want people to easily be able to remove xenoborg brains.
   - type: EmpResistance # DeltaV
     durationMultiplier: 0.1 # Only disabled for 10%. Default EMP stun time is 60% so still a 6 second disable. Battery has 40% resistance already.
+  - type: LanguageKnowledge # Floofstation.
+    speaks:
+    - TauCetiBasic
+    - Binary
+    understands:
+    - TauCetiBasic
+    - Binary
+    naturalLanguage: Binary

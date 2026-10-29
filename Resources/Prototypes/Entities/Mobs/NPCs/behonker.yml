@@ -116,6 +116,11 @@
         reagents:
         - ReagentId: Laughter
           Quantity: 300
+    - type: LanguageKnowledge # Floofstation
+      speaks:
+        - Eldritch
+      understands:
+        - Eldritch        
 - type: entity
   name: behonker
   parent: BaseMobBehonker

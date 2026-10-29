@@ -179,6 +179,14 @@
     activateSound: null
     deactivateSound: null
     # End DeltaV additions
+  - type: LanguageKnowledge # Floofstation
+    speaks:
+    - Xeno
+    - TauCetiBasic
+    understands:
+    - Xeno
+    - TauCetiBasic
+    naturalLanguage: Xeno
 
 - type: entity
   parent: BaseMobDragon

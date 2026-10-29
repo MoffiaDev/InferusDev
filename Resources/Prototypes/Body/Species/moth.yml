@@ -193,6 +193,14 @@
       289: 0.9
       275: 0.8
       250: 0.7
+  - type: LanguageKnowledge # Floofstation
+    speaks:
+    - TauCetiBasic
+    - Moffic
+    understands:
+    - TauCetiBasic
+    - Moffic
+    naturalLanguage: Moffic
 
 - type: entity
   parent: OrganBase

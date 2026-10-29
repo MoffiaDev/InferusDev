@@ -1,0 +1,259 @@
+using System.Linq;
+using System.Text;
+using Content.Shared._Floof.Language.Components;
+using Content.Shared.GameTicking;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Utility;
+
+namespace Content.Shared._Floof.Language.Systems;
+
+public abstract partial class SharedLanguageSystem : EntitySystem
+{
+    [Dependency] protected IPrototypeManager _prototype = default!;
+    [Dependency] protected SharedGameTicker _ticker = default!;
+
+    // Starlight start
+    /// <summary>
+    /// The chat prefix used to begin parsing a language. e.g. <c>^gcThis will parse to Galactic Common</c>.
+    /// </summary>
+    public static readonly char ChatPrefixChar = '^';
+    // Starlight end
+
+    /// <summary>
+    ///     The language used as a fallback in cases where an entity suddenly becomes a language speaker (e.g. the usage of make-sentient)
+    /// </summary>
+    public static readonly ProtoId<LanguagePrototype> FallbackLanguagePrototype = "TauCetiBasic";
+
+    /// <summary>
+    ///     The language whose speakers are assumed to understand and speak every language. Should never be added directly.
+    /// </summary>
+    public static readonly ProtoId<LanguagePrototype> UniversalPrototype = "Universal";
+
+    /// <summary>
+    ///     A cached instance of <see cref="UniversalPrototype"/>
+    /// </summary>
+    public static LanguagePrototype Universal { get; private set; } = default!;
+
+    protected EntityQuery<LanguageSpeakerComponent> SpeakerQuery = default!;
+    protected EntityQuery<LanguageKnowledgeComponent> KnowledgeQuery = default!;
+    protected EntityQuery<UniversalLanguageSpeakerComponent> UniversalQuery = default!;
+
+    public override void Initialize()
+    {
+        Universal = _prototype.Index(UniversalPrototype);
+
+        SpeakerQuery = GetEntityQuery<LanguageSpeakerComponent>();
+        KnowledgeQuery = GetEntityQuery<LanguageKnowledgeComponent>();
+        UniversalQuery = GetEntityQuery<UniversalLanguageSpeakerComponent>();
+    }
+
+    #region public api
+
+    /// <summary>
+    /// Checks if an entity can understand a given language. Universal speakers are assumed to understand every language.
+    /// On the client side, this method is only guaranteed to work if the entity is the local player.
+    /// </summary>
+    public bool CanUnderstand(Entity<LanguageSpeakerComponent?> ent, ProtoId<LanguagePrototype> languageId)
+    {
+        // Entities with no LanguageSpeakerComponent understand everything - skip the expensive index in that case
+        // Also universal is understood by everyone, so also skip if it's that
+        if (languageId == Universal || !SpeakerQuery.Resolve(ent, ref ent.Comp, logMissing: false))
+            return true;
+
+        return _prototype.TryIndex(languageId, out var language) && CanUnderstand(ent, language);
+    }
+
+    /// <inheritdoc cref="CanUnderstand(Entity&lt;Components.LanguageSpeakerComponent&gt;, ProtoId&lt;LanguagePrototype&gt;)"/>
+    public bool CanUnderstand(Entity<LanguageSpeakerComponent?> ent, LanguagePrototype language)
+    {
+        // Entities with no LanguageSpeakerComponent or with UniversalSpeakerComponent understand everything
+        if (language == Universal
+            || UniversalQuery.TryComp(ent, out var uni) && uni.Enabled
+            || !SpeakerQuery.Resolve(ent, ref ent.Comp, logMissing: false))
+            return true;
+
+        return ent.Comp.UnderstoodLanguages.Contains(language.ID);
+    }
+
+    /// <summary>
+    /// Checks if an entity can speak a given language.
+    /// On the client side, this method is only guaranteed to work if the entity is the local player.
+    /// </summary>
+    public bool CanSpeak(Entity<LanguageSpeakerComponent?> ent, ProtoId<LanguagePrototype> languageId)
+    {
+        // Entities with no LanguageSpeakerComponent only speak universal - skip the expensive indexing in that case
+        if (!SpeakerQuery.Resolve(ent, ref ent.Comp, logMissing: false))
+            return languageId == Universal;
+
+        return _prototype.TryIndex(languageId, out var language) && CanSpeak(ent, language);
+    }
+
+    /// <inheritdoc cref="CanSpeak(Entity&lt;Components.LanguageSpeakerComponent&gt;, ProtoId&lt;LanguagePrototype&gt;)"/>
+    public bool CanSpeak(Entity<LanguageSpeakerComponent?> ent, LanguagePrototype language)
+    {
+        if (!SpeakerQuery.Resolve(ent, ref ent.Comp, logMissing: false))
+            return language == UniversalPrototype;
+
+        return ent.Comp.SpokenLanguages.Contains(language.ID);
+    }
+
+    /// <summary>
+    ///     Returns the current language of the given entity, assumes Universal if it's not a language speaker.
+    /// </summary>
+    public LanguagePrototype GetLanguage(Entity<LanguageSpeakerComponent?> ent)
+    {
+        if (!SpeakerQuery.Resolve(ent, ref ent.Comp, logMissing: false)
+            || string.IsNullOrEmpty(ent.Comp.CurrentLanguage)
+            || !_prototype.TryIndex<LanguagePrototype>(ent.Comp.CurrentLanguage, out var proto)
+        )
+            return Universal;
+
+        return proto;
+    }
+
+    /// <summary>
+    ///     Returns the list of languages this entity can speak.
+    /// </summary>
+    /// <remarks>This simply returns the value of <see cref="Components.LanguageSpeakerComponent.SpokenLanguages"/>.</remarks>
+    public List<ProtoId<LanguagePrototype>> GetSpokenLanguages(EntityUid uid)
+    {
+        // Note: using [Universal] will cause a sandbox violation on the client sidwase
+        return SpeakerQuery.TryComp(uid, out var component) ? component.SpokenLanguages : new() { Universal };
+    }
+
+    /// <summary>
+    ///     Returns the list of languages this entity can understand.
+    /// </summary
+    /// <remarks>This simply returns the value of <see cref="Components.LanguageSpeakerComponent.SpokenLanguages"/>.</remarks>
+    public List<ProtoId<LanguagePrototype>> GetUnderstoodLanguages(EntityUid uid)
+    {
+        return SpeakerQuery.TryComp(uid, out var component) ? component.UnderstoodLanguages : [];
+    }
+
+    public LanguagePrototype? GetLanguagePrototype(ProtoId<LanguagePrototype> id)
+    {
+        _prototype.TryIndex(id, out var proto);
+        return proto;
+    }
+
+    /// <remarks>Does nothing on the client side.</remarks>
+    public virtual void SetLanguage(Entity<LanguageSpeakerComponent?> ent, ProtoId<LanguagePrototype> language) {}
+
+    /// <remarks>Does nothing on the client side.</remarks>
+    public virtual void AddLanguage(EntityUid uid, ProtoId<LanguagePrototype> language, bool addSpoken = true, bool addUnderstood = true) {}
+
+    /// <remarks>Does nothing on the client side.</remarks>
+    public virtual void RemoveLanguage(Entity<LanguageKnowledgeComponent?> ent, ProtoId<LanguagePrototype> language, bool removeSpoken = true, bool removeUnderstood = true) {}
+
+    /// <remarks>Does nothing on the client side.</remarks>
+    public virtual bool EnsureValidLanguage(Entity<LanguageSpeakerComponent?> ent) => true;
+
+    /// <summary>
+    ///     Makes the relay target speak and understand exactly the same languages as the relay source. If relay source is null, clears the relay instead.
+    ///     Does nothing on client.
+    /// </summary>
+    public virtual void SetupLanguageRelay(EntityUid relayTarget, Entity<LanguageKnowledgeComponent?>? relaySource) {}
+
+    /// <summary>
+    ///     Obfuscates the message using the provided language prototype.
+    /// </summary>
+    public string ObfuscateSpeech(string message, LanguagePrototype language)
+    {
+        var builder = new StringBuilder();
+        language.Obfuscation.Obfuscate(builder, message, this);
+
+        return builder.ToString();
+    }
+
+    /// <summary>
+    ///     Obfuscates the message using the current spoken language of the entity. Returns the obfuscated message and the language used.
+    /// </summary>
+    public string ObfuscateSpeechForEntity(string message, EntityUid entity, out LanguagePrototype language)
+    {
+        language = GetLanguage(entity);
+        return ObfuscateSpeech(message, language);
+    }
+
+    #endregion
+
+    /// <summary>
+    ///     Generates a stable pseudo-random number in the range (min, max) (inclusively) for the given seed.
+    ///     One seed always corresponds to one number, however the resulting number also depends on the current round number.
+    ///     This method is meant to be used in <see cref="ObfuscationMethod"/> to provide stable obfuscation.
+    /// </summary>
+    internal int PseudoRandomNumber(int seed, int min, int max)
+    {
+        // Using RobustRandom or System.Random here is a bad idea because this method can get called hundreds of times per message.
+        // Each call would require us to allocate a new instance of random, which would lead to lots of unnecessary calculations.
+        // Instead, we use a simple but effective algorithm derived from the C language.
+        // It does not produce a truly random number, but for the purpose of obfuscating messages in an RP-based game it's more than alright.
+
+        // Floofstation - replaced round-based obfuscation with a persistent one
+        // seed = seed ^ (_ticker.RoundId * 127);
+        seed = seed ^ 0x4813184;
+        var random = seed * 1103515245 + 12345;
+        return min + Math.Abs(random) % (max - min + 1);
+    }
+
+    // Starlight start
+    /// <summary>
+    ///     Attempt to resolve language based off a given prefix.
+    ///     Returns null if there's no prefix or language doesn't exist. Never returns a language the entity cannot speak.
+    /// </summary>
+    /// <param name="ent">Entity to get language from</param>
+    /// <param name="input">Input to parse for prefix. Should start with <c><see cref="ChatPrefixChar"/></c>.</param>
+    /// <param name="modifyText">Whether to allow this function to modify the resulting text string or not.</param>
+    /// <param name="invalid">True if prefix was found but was invalid. False otherwise.</param>
+    public LanguagePrototype? GetLanguageFromPrefix(Entity<LanguageSpeakerComponent?> ent, ref string input, bool modifyText, out bool invalid)
+    {
+        // This method has been rewritten on Euph because starlight's implementation is just slop.
+        invalid = false;
+        if (!Resolve(ent, ref ent.Comp, logMissing: false))
+            return null;
+
+        var text = input;
+        if (text.Length < 3 || !text.StartsWith(ChatPrefixChar)) // Shortest possible message: "^g."
+            return null;
+
+        text = text[1..];
+        foreach (var langId in ent.Comp.SpokenLanguages)
+        {
+            if (!_prototype.TryIndex(langId, out var lang) || lang.ChatPrefix is null)
+                continue;
+
+            if (!text.StartsWith(lang.ChatPrefix, StringComparison.CurrentCultureIgnoreCase))
+                continue;
+
+            if(modifyText)
+                input = text[lang.ChatPrefix.Length..];
+
+            return lang;
+        }
+
+        // Euph addition - if no language matched, try to parse it as an index (up to 2 digits) in the form "^1" or "^10"
+        var maybeNumber = 0;
+        var parsedDigits = 0;
+        for (var i = 0; i < 2; i++)
+        {
+            var ch = text[parsedDigits];
+            if (!char.IsDigit(ch))
+                break;
+            maybeNumber = maybeNumber * 10 + (ch - '0');
+            parsedDigits++;
+        }
+
+        if (maybeNumber > 0 && maybeNumber <= ent.Comp.SpokenLanguages.Count)
+        {
+            if (modifyText)
+                input = text[parsedDigits..];
+
+            var id = ent.Comp.SpokenLanguages[maybeNumber - 1];
+            return _prototype.TryIndex(id, out var proto) ? proto : null;
+        }
+
+        // Fallback to avoid sending the message with an invalid prefix.
+        invalid = true;
+        return null;
+    }
+    // Starlight end
+}

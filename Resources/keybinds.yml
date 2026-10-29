@@ -132,6 +132,11 @@ binds:
 - function: FocusConsoleChatWindow
   type: State
   key: Slash
+# Floofstation section
+- function: OpenLanguageMenu
+  type: State
+  key: L
+# Floofstation section end
 - function: EditorLinePlace
   type: State
   key: MouseLeft

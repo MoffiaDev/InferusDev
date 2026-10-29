@@ -1,5 +1,8 @@
 using System.Numerics;
+using System.Text.RegularExpressions;
+using Content.Client._Floof.Language.RichText;
 using Content.Client.Chat.Managers;
+using Content.Shared._Floof.Language;
 using Content.Shared.CCVar;
 using Content.Shared.Chat;
 using Content.Shared.Speech;
@@ -7,6 +10,7 @@ using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Configuration;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
@@ -63,6 +67,10 @@ namespace Content.Client.Chat.UI
 
         // man down
         public event Action<EntityUid, SpeechBubble>? OnDied;
+
+        // Floofstation - lazy way to extract the language id from a LanguageIconTag.
+        // It's probably going to be fine unless someone tries to inject a LIT inside their character name, in which case it doesn't really matter
+        protected static Regex LanguageIdRegexp = new($"\\[{LanguageIconTag.TagName}=\"(.*?)\"\\]");
 
         public static SpeechBubble CreateSpeechBubble(SpeechType type, ChatMessage message, EntityUid senderEntity)
         {
@@ -274,6 +282,18 @@ namespace Content.Client.Chat.UI
             //We'll be honest. *Yes* this is hacky. Doing this in a cleaner way would require a bottom-up refactor of how saycode handles sending chat messages. -Myr
             bubbleHeader.SetMessage(ExtractAndFormatSpeechSubstring(message, "BubbleHeader", fontColor));
             bubbleContent.SetMessage(ExtractAndFormatSpeechSubstring(message, "BubbleContent", fontColor));
+            // Inferus Section - Languages, no language name in bubbles
+            // // Floofstation section - append the language hint if there's supposed to be one
+            // var languageMatch = LanguageIdRegexp.Match(message.WrappedMessage);
+            // if (languageMatch.Success && languageMatch.Groups[1].Value is { Length: >0 } languageId)
+            // {
+            //     var languageName = Loc.GetString($"language-{languageId}-name");
+            //     var msg = bubbleHeader.GetFormattedMessage()!;
+            //     msg.AddMarkupPermissive(Loc.GetString("chat-manager-language-hint-ui", ("language", languageName)));
+            //     bubbleHeader.SetMessage(msg);
+            // }
+            // // Floofstation section end
+            // Inferus Section End
 
             //As for below: Some day this could probably be converted to xaml. But that is not today. -Myr
             var mainPanel = new PanelContainer

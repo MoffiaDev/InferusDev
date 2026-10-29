@@ -81,6 +81,7 @@ namespace Content.Client.Input
             human.AddFunction(ContentKeyFunctions.TryPullObject);
             human.AddFunction(ContentKeyFunctions.MovePulledObject);
             human.AddFunction(ContentKeyFunctions.ReleasePulledObject);
+            human.AddFunction(ContentKeyFunctions.OpenLanguageMenu); // Floofstation
             human.AddFunction(ContentKeyFunctions.OpenCraftingMenu);
             human.AddFunction(ContentKeyFunctions.OpenInventoryMenu);
             human.AddFunction(ContentKeyFunctions.SmartEquipBackpack);
