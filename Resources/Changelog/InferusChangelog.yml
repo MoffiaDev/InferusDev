@@ -67,3 +67,11 @@ Entries:
         it.
   id: 7
   time: '2026-10-29T04:58:50.0000000+00:00'
+- author: Tarazicon
+  changes:
+    - type: Add
+      message: >-
+        You can now drag and drop jobs in the lobby. This is per-character,
+        sorry Starlight players.
+  id: 8
+  time: '2026-10-29T07:02:48.0000000+00:00'
