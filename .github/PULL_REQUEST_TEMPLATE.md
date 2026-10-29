@@ -12,7 +12,7 @@
 ## Testing Procedure
 <!-- If this PR features ANY changes in-game, please elaborate on how to test them. -->
 
-# How To Disable
+## How To Disable
 <!-- This is generally for content that can be seitched off via CVar. Don't include this section if it does not apply. -->
 
 ## Media
