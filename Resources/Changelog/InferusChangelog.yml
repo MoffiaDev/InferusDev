@@ -58,3 +58,12 @@ Entries:
       message: Added translators, translator implants and language traits.
   id: 6
   time: '2026-10-29T01:27:21.0000000+00:00'
+- author: Tarazicon
+  changes:
+    - type: Add
+      message: >-
+        A new particle system has been added, allowing more unique effects to
+        exist. Burning items, gibbing, etc. have new effects to go along with
+        it.
+  id: 7
+  time: '2026-10-29T04:58:50.0000000+00:00'
