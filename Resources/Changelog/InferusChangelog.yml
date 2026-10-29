@@ -75,3 +75,11 @@ Entries:
         sorry Starlight players.
   id: 8
   time: '2026-10-29T07:02:48.0000000+00:00'
+- author: Tarazicon
+  changes:
+    - type: Tweak
+      message: >-
+        Explosions now have extra *kick* to them with the addition of RMC's
+        explosion visuals.
+  id: 9
+  time: '2026-10-29T20:08:47.0000000+00:00'
