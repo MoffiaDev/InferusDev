@@ -41,6 +41,7 @@
     maxIntensity: 100
     maxTileBreak: 1
     tileBreakScale: 2
+  - type: ExplosionEffect # Inferus
   - type: TileFrictionModifier
     modifier: 0
 
@@ -67,6 +68,7 @@
         - BulletImpassable
   - type: Explosive
     totalIntensity: 25
+  - type: ExplosionEffect # Inferus
   - type: Destructible
     thresholds:
     - trigger:
@@ -102,6 +104,7 @@
         - BulletImpassable
   - type: Explosive
     totalIntensity: 100
+  - type: ExplosionEffect # Inferus
   - type: Destructible
     thresholds:
     - trigger:
@@ -142,6 +145,7 @@
         - BulletImpassable
   - type: Explosive
     totalIntensity: 200
+  - type: ExplosionEffect # Inferus
   - type: Destructible
     thresholds:
     - trigger:
@@ -170,6 +174,7 @@
     state: big
   - type: Explosive
     totalIntensity: 300
+  - type: ExplosionEffect # Inferus
   - type: Destructible
     thresholds:
     - trigger:
@@ -207,6 +212,7 @@
           Quantity: 1000
   - type: Explosive
     totalIntensity: 25
+  - type: ExplosionEffect # Inferus
   - type: Destructible
     thresholds:
     - trigger:
@@ -241,6 +247,7 @@
     state: cow_pixel
   - type: Explosive
     totalIntensity: 25
+  - type: ExplosionEffect # Inferus
   - type: SolutionContainerManager
     solutions:
       milk:
@@ -283,6 +290,7 @@
     state: clown_pixel
   - type: Explosive
     totalIntensity: 25
+  - type: ExplosionEffect # Inferus
   - type: SolutionContainerManager
     solutions:
       laughter:
@@ -327,6 +335,7 @@
     state: potato
   - type: Explosive
     totalIntensity: 25
+  - type: ExplosionEffect # Inferus
   - type: SolutionContainerManager
     solutions:
       ketchup:

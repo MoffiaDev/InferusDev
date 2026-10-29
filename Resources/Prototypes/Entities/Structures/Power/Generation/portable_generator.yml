@@ -332,8 +332,9 @@
       # Full tank is 25 moles of gas
       moleRatio: 0.5
     - type: Explosive
-      explosionType: Default
+      explosionType: Transparent # Inferus
       tileBreakScale: 0
+    - type: ExplosionEffect # Inferus
     - type: Destructible
       thresholds:
         - trigger:

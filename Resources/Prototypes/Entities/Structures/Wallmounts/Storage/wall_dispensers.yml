@@ -105,5 +105,6 @@
         Heat: 20
   - type: PacifismDangerousAttack
   - type: Explosive
-    explosionType: Default
+    explosionType: Transparent # Inferus
     totalIntensity: 50
+  - type: ExplosionEffect # Inferus

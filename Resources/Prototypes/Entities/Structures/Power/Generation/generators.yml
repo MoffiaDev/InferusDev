@@ -67,11 +67,12 @@
           collection: MetalBreak
       - !type:ExplodeBehavior
   - type: Explosive
-    explosionType: Default
+    explosionType: Transparent # Inferus
     # Same as AME, but numbers still picked from a hat.
     maxIntensity: 100
     intensitySlope: 2
     totalIntensity: 200
+  - type: ExplosionEffect # Inferus
   - type: StaticPrice
     price: 500
   - type: Electrified

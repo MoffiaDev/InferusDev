@@ -1,3 +1,4 @@
+using Content.Client._Funkystation.Explosion; // Inferus
 using Content.Client.Administration.Managers;
 using Content.Client.Changelog;
 using Content.Client.Chat.Managers;
@@ -174,6 +175,7 @@ namespace Content.Client.Entry
             _overlayManager.AddOverlay(new SingularityOverlay());
             _overlayManager.AddOverlay(new RadiationPulseOverlay());
             _overlayManager.AddOverlay(new RMCXenoScreechShockWaveOverlay()); // RMC14
+            _overlayManager.AddOverlay(new ExplosionShockWaveOverlay()); // Inferus
             _overlayManager.AddOverlay(new EmpBlastOverlay()); // Frontier
             _chatManager.Initialize();
             _clientPreferencesManager.Initialize();

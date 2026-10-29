@@ -3,6 +3,7 @@
   parent: BaseItem
   id: ProjectileGrenadeBase
   components:
+  - type: ExplosionEffect # Inferus
   - type: Appearance
   - type: Damageable
     damageContainer: Inorganic

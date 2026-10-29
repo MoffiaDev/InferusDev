@@ -8,6 +8,7 @@ using Content.Server.NodeContainer.EntitySystems;
 using Content.Server.NPC.Pathfinding;
 using Content.Server.Station.Systems; // DeltaV - Admin QOL
 using Content.Shared._ES.Camera; // ES - Screenshake
+using Content.Shared._Funkystation.Explosion; // Inferus
 using Content.Shared.Atmos.Components;
 using Content.Shared.Camera;
 using Content.Shared.CCVar;
@@ -182,6 +183,11 @@ public sealed partial class ExplosionSystem : SharedExplosionSystem
             explosive.MaxTileBreak,
             explosive.CanCreateVacuum,
             user);
+
+        // BEGIN Inferus
+        var ev = new ExplosiveTriggeredEvent();
+        RaiseLocalEvent(uid, ref ev);
+        // END Inferus
 
         if (explosive.DeleteAfterExplosion ?? delete)
             QueueDel(uid);

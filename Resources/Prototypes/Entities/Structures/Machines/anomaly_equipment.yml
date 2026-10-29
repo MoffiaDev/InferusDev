@@ -67,11 +67,12 @@
           True: { visible: false }
           False: { visible: true }
   - type: Explosive
-    explosionType: Default
+    explosionType: Transparent # Inferus
     maxIntensity: 20
     intensitySlope: 30
     totalIntensity: 30
     canCreateVacuum: false
+  - type: ExplosionEffect # Inferus
   - type: Destructible
     thresholds:
     - trigger:
@@ -113,6 +114,7 @@
     intensitySlope: 7.5
     totalIntensity: 500
     canCreateVacuum: true
+  - type: ExplosionEffect # Inferus
 
 - type: entity
   id: MachineAPE
