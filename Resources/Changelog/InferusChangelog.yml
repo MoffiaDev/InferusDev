@@ -42,3 +42,9 @@ Entries:
         ones if you want that!
   id: 4
   time: '2026-10-28T19:07:22.0000000+00:00'
+- author: Tarazicon
+  changes:
+    - type: Add
+      message: Sounds you make are now echo-y. Appropriate settings have been added!
+  id: 5
+  time: '2026-10-29T00:59:43.0000000+00:00'
