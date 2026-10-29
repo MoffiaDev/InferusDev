@@ -25,10 +25,13 @@ Describe how you tested the pull request, and how someone reviewing this PR can 
 - [ ] If I am porting something, I have done my best to respect the appropriate licenses associated with the presented changes.
 <!-- You should understand that not following the above may get your PR closed at maintainer’s discretion -->
 
-<!-- Our repository uses REUSE headers to easily determine who contributed to what, and to also easily segregate files that have different licenses. If you wish to have your PR submitted under a different license, please list it here. Acceptable entries are: MIT, AGPL-3.0-or-later. -->
+<!-- This is for the benefit of other forks wishing to port features from Inferus.
+Our repository is AGPLv3, meaning projects using the MIT license would have to ask for permission from the PR author (ideally that's you, reading this) before being allowed to port it over.
+This just saves them the trouble. Note that AGPL or MIT licensing is only applicable to SOFTWARE, and that assets such as textures and audio have their own licensing scheme that is defined in the codebase itself. -->
 ## Licenses
-MIT
-AGPL-3.0
+- [ ] I confirm that I am the creator of the code in this PR, and allow licensing it under the following license(s), or that the original author(s) has given me permission to do so.
+- [ ] MIT
+- [ ] AGPL-3.0
 
 ## Breaking changes
 <!-- List any breaking changes, including namespaces, public class/method/field changes, prototype renames; and provide instructions for fixing them. -->
