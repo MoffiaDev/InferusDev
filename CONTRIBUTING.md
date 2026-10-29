@@ -32,6 +32,8 @@ Sprite copyright can be found in the `meta.json` file located in their RSI folde
 
 Porting sprites is easy enough on its own, HOWEVER, if the code behind those sprites is different, you must do what's called a **cleanroom implementation**, in which you have to write the code from scratch and license it under AGPL in order for it to be used.
 
+If you're doing a port PR, please prefix [PORT] to the title of it, as to not confuse anyone when looking through the PR list.
+
 # Changes to upstream files
 
 Follow a few guidelines when modifying non-Inferus files, to help us manage our project. (files that are not in `_Inferus` folders)
