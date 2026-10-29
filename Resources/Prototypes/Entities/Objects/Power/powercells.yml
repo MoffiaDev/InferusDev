@@ -8,8 +8,9 @@
   - type: Battery
     pricePerJoule: 0.15
   - type: PowerCell
+  - type: ExplosionEffect # Inferus
   - type: Explosive
-    explosionType: Default
+    explosionType: Transparent # Inferus
     maxIntensity: 200
     intensitySlope: 1.5
   - type: Sprite

@@ -1499,6 +1499,7 @@
     maxIntensity: 1.5
     canCreateVacuum: false
     repeatable: true
+  - type: ExplosionEffect # Inferus
 
 - type: entity
   id: XenoArtifactBoom
@@ -1511,11 +1512,12 @@
   - type: XAETriggerExplosives
   - type: Explosive
     deleteAfterExplosion: false
-    explosionType: Default
+    explosionType: Transparent # Inferus
     totalIntensity: 500
     intensitySlope: 2.5
     maxIntensity: 50
     repeatable: true
+  - type: ExplosionEffect # Inferus
 
 - type: entity
   id: XenoArtifactEffectCreationGasPlasma
