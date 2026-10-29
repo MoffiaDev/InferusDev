@@ -18,7 +18,9 @@
     - Carpet
     - ForceFixRotations
   - type: Physics
-    canCollide: false
+    bodyType: Static # Inferus
+    #canCollide: false # Inferus
+    canCollide: true # Inferus
   - type: Fixtures
     fixtures:
       fix1:
@@ -26,6 +28,7 @@
           !type:PhysShapeAabb
           bounds: "-0.45,-0.45,0.45,0.45"
         density: 5
+        hard: false # Inferus
         layer:
         - DoorPassable
   - type: Damageable
@@ -45,6 +48,8 @@
     - id: MaterialCloth1
       amount: 1
   - type: TrayScanReveal
+  - type: AcousticData # Inferus
+    absorption: 12
 
 - type: entity
   id: Carpet

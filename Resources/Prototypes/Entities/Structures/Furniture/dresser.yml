@@ -50,6 +50,8 @@
   - type: Construction
     graph: Dresser
     node: dresser
+  - type: AcousticData # Inferus
+    absorption: 20
 
 - type: entity
   id: DresserFilled

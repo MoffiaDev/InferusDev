@@ -47,6 +47,8 @@
   - type: Tag
     tags:
     - HideContextMenu
+  - type: AcousticData # Inferus
+    absorption: 30
 
 - type: entity
   parent: FloorChasmEntity
