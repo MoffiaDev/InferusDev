@@ -48,3 +48,13 @@ Entries:
       message: Sounds you make are now echo-y. Appropriate settings have been added!
   id: 5
   time: '2026-10-29T00:59:43.0000000+00:00'
+- author: Pachat-Kas
+  changes:
+    - type: Add
+      message: >-
+        Ported languages! Every species speaks its own tongue, switchable from
+        the new language menu.
+    - type: Add
+      message: Added translators, translator implants and language traits.
+  id: 6
+  time: '2026-10-29T01:27:21.0000000+00:00'
