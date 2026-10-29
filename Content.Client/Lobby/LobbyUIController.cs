@@ -150,7 +150,8 @@ public sealed class LobbyUIController : UIController, IOnStateEntered<LobbyState
     /// </summary>
     public void ReloadCharacterSetup()
     {
-        RefreshLobbyPreview();
+        // RefreshLobbyPreview(); // Inferus - moved into LobbyCharacterPreviewPanel
+        PreviewPanel?.Refresh(); // Inferus
         var (characterGui, profileEditor) = EnsureGui();
         characterGui.ReloadCharacterPickers();
         profileEditor.SetProfile(
@@ -158,6 +159,7 @@ public sealed class LobbyUIController : UIController, IOnStateEntered<LobbyState
             _preferencesManager.Preferences?.SelectedCharacterIndex);
     }
 
+    /* Inferus - moved into LobbyCharacterPreviewPanel.Refresh()
     /// <summary>
     /// Refreshes the character preview in the lobby chat.
     /// </summary>
@@ -179,6 +181,7 @@ public sealed class LobbyUIController : UIController, IOnStateEntered<LobbyState
         PreviewPanel.ProfilePreviewSpriteView.LoadPreview(humanoid);
         PreviewPanel.SetSummaryText(humanoid.Summary);
     }
+    */
 
     private void RefreshProfileEditor()
     {
