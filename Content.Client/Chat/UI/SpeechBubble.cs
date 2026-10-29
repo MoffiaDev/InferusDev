@@ -282,16 +282,18 @@ namespace Content.Client.Chat.UI
             //We'll be honest. *Yes* this is hacky. Doing this in a cleaner way would require a bottom-up refactor of how saycode handles sending chat messages. -Myr
             bubbleHeader.SetMessage(ExtractAndFormatSpeechSubstring(message, "BubbleHeader", fontColor));
             bubbleContent.SetMessage(ExtractAndFormatSpeechSubstring(message, "BubbleContent", fontColor));
-            // Floofstation section - append the language hint if there's supposed to be one
-            var languageMatch = LanguageIdRegexp.Match(message.WrappedMessage);
-            if (languageMatch.Success && languageMatch.Groups[1].Value is { Length: >0 } languageId)
-            {
-                var languageName = Loc.GetString($"language-{languageId}-name");
-                var msg = bubbleHeader.GetFormattedMessage()!;
-                msg.AddMarkupPermissive(Loc.GetString("chat-manager-language-hint-ui", ("language", languageName)));
-                bubbleHeader.SetMessage(msg);
-            }
-            // Floofstation section end
+            // Inferus Section - Languages, no language name in bubbles
+            // // Floofstation section - append the language hint if there's supposed to be one
+            // var languageMatch = LanguageIdRegexp.Match(message.WrappedMessage);
+            // if (languageMatch.Success && languageMatch.Groups[1].Value is { Length: >0 } languageId)
+            // {
+            //     var languageName = Loc.GetString($"language-{languageId}-name");
+            //     var msg = bubbleHeader.GetFormattedMessage()!;
+            //     msg.AddMarkupPermissive(Loc.GetString("chat-manager-language-hint-ui", ("language", languageName)));
+            //     bubbleHeader.SetMessage(msg);
+            // }
+            // // Floofstation section end
+            // Inferus Section End
 
             //As for below: Some day this could probably be converted to xaml. But that is not today. -Myr
             var mainPanel = new PanelContainer
