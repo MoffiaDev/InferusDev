@@ -20,7 +20,7 @@ Examples:
 - `Resources/ServerInfo/Guidebook/_Inferus/AlertProcedure.xml`
   Note that guidebooks go in `ServerInfo/Guidebook/_Inferus` and not `ServerInfo/_Inferus`!
 
-If you're adding a system, make sure that you're able to turn it off via CVar, just in case things go awry in the live server.
+If you're adding a system, it's generally a good idea to make sure you're able to turn it off via CVar, just in case things go awry in a live server. This isn't required, but is helpful.
 
 # Porting from other forks
 
