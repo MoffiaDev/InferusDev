@@ -83,6 +83,7 @@
     - ReportingStatic
     - EVASuit
     - EngineeringStaticDeltaV
+    - SuperMatterEngineeringStatic # Inferus - supermatter board (Panta-Rhei #761)
     dynamicPacks:
     - AdvancedTools
     - PowerCells

@@ -525,6 +525,11 @@
     - Hardsuit
     - WhitelistChameleon
     - HidesHarpyWings # DeltaV: Used by harpies to help render their hardsuit sprites
+  # Inferus - supermatter immunity for the engineering hardsuit
+  - type: SupermatterImmune
+  - type: ClothingGrantComponent
+    component:
+    - type: SupermatterImmune
   - type: StealTarget
     stealGroup: ClothingOuterHardsuitEngineeringWhite #DeltaV - added traitor steal objective
 
