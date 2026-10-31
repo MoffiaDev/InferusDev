@@ -124,3 +124,11 @@ Entries:
       message: Mass mindswaps now only affect players who opt in.
   id: 13
   time: '2026-10-31T16:34:12.0000000+00:00'
+- author: Tarazicon
+  changes:
+    - type: Tweak
+      message: >-
+        You can no longer properly make out the identity of other players while
+        in crit!
+  id: 14
+  time: '2026-10-31T18:40:49.0000000+00:00'
