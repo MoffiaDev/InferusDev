@@ -1,5 +1,4 @@
 using Content.Client._Funkystation.Explosion; // Inferus
-using Content.Client._Common.Consent;
 using Content.Client.Administration.Managers;
 using Content.Client.Changelog;
 using Content.Client.Chat.Managers;

@@ -2,15 +2,13 @@
 // SPDX-License-Identifier: MIT
 
 using Content.Shared._Common.Consent;
-using Robust.Client.Player;
 using Robust.Shared.Network;
 
 namespace Content.Client._Common.Consent;
 
-public sealed class ClientConsentManager : IClientConsentManager
+public sealed partial class ClientConsentManager : IClientConsentManager
 {
-    [Dependency] private readonly IClientNetManager _netManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency] private IClientNetManager _netManager = default!;
 
     private PlayerConsentSettings? _consent;
 
@@ -36,7 +34,8 @@ public sealed class ClientConsentManager : IClientConsentManager
     {
         if (_consent is null)
         {
-            throw new InvalidOperationException("Player doesn't have a session yet?");
+            Logger.GetSawmill("consent").Error("Attempt to access consent data before session data has been loaded.");
+            return new();
         }
 
         return _consent;
