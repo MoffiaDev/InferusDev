@@ -18,6 +18,7 @@ public sealed partial class ESViewconeConeOverlay : Overlay
     [Dependency] private IConfigurationManager _cfg = default!;
     [Dependency] private IPrototypeManager _proto = default!;
     private readonly ESViewconeAngleSystem _angle;
+    private readonly SharedTransformSystem _xform; // Inferus
 
     public override OverlaySpace Space => OverlaySpace.WorldSpace;
     public override bool RequestScreenTexture => true;
@@ -43,6 +44,7 @@ public sealed partial class ESViewconeConeOverlay : Overlay
         IoCManager.InjectDependencies(this);
 
         _angle = _ent.EntitySysManager.GetEntitySystem<ESViewconeAngleSystem>();
+        _xform = _ent.EntitySysManager.GetEntitySystem<SharedTransformSystem>(); // Inferus
 
         _viewconeShader = _proto.Index(ShaderPrototype).InstanceUnique();
         ZIndex = -6;
@@ -96,6 +98,12 @@ public sealed partial class ESViewconeConeOverlay : Overlay
 
         var worldHandle = args.WorldHandle;
         var viewport = args.WorldBounds;
+
+        // BEGIN Inferus - center the cone on the character instead of the middle of the screen
+        var origin = args.Viewport.WorldToLocal(_xform.GetWorldPosition(_eyeEntity.Value.Comp3));
+        origin.Y = args.Viewport.Size.Y - origin.Y;
+        _viewconeShader.SetParameter("Origin", origin);
+        // END Inferus
 
         _viewconeShader.SetParameter("SCREEN_TEXTURE", ScreenTexture);
         _viewconeShader.SetParameter("Zoom", _eyeEntity.Value.Comp1.Zoom.X);

@@ -2,6 +2,7 @@ using Content.Client._ES.Viewcone.Overlays;
 using Content.Client.Eye;
 using Content.Shared._ES.Viewcone.Components;
 using Content.Shared._Funkystation.CCVar; // Funky
+using Content.Shared.Mobs.Systems; // Inferus
 using Content.Shared.MouseRotator;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
@@ -25,6 +26,7 @@ public sealed partial class ESViewconeOverlayManagementSystem : EntitySystem
     [Dependency] private IEyeManager _eye = default!;
     [Dependency] private SharedTransformSystem _xform = default!;
     [Dependency] private IConfigurationManager _cfg = default!; // Funky
+    [Dependency] private MobStateSystem _mobState = default!; // Inferus
     private ESViewconeConeOverlay _coneOverlay = default!;
     private ESViewconeSetAlphaOverlay _setAlphaOverlay = default!;
     private ESViewconeResetAlphaOverlay _resetAlphaOverlay = default!;
@@ -74,6 +76,19 @@ public sealed partial class ESViewconeOverlayManagementSystem : EntitySystem
     public override void FrameUpdate(float frameTime)
     {
         base.FrameUpdate(frameTime);
+
+        // BEGIN Inferus
+        if (_playerManager.LocalEntity is { } local && HasComp<ESViewconeComponent>(local))
+        {
+            var incapacitated = _mobState.IsIncapacitated(local);
+            var active = _overlayMan.HasOverlay<ESViewconeConeOverlay>();
+
+            if (incapacitated && active)
+                RemoveOverlays();
+            else if (!incapacitated && !active)
+                AddOverlays(); // still respects the viewcone CVar
+        }
+        // END Inferus
 
         // the reason we use lerpingeye here in the query first is to
         // specifically check for eyes that we are actually rendering (lerpingeye already handles this sort of
@@ -160,6 +175,14 @@ public sealed partial class ESViewconeOverlayManagementSystem : EntitySystem
         // Funky
         if (!_cfg.GetCVar(ViewconeCCVars.ViewconeEnabled))
             return;
+
+        // BEGIN Inferus - no viewcone while crit/dead
+        if (_playerManager.LocalEntity is { } local && _mobState.IsIncapacitated(local))
+            return;
+
+        if (_overlayMan.HasOverlay<ESViewconeConeOverlay>())
+            return;
+        // END Inferus
 
         _overlayMan.AddOverlay(_coneOverlay);
         _overlayMan.AddOverlay(_setAlphaOverlay);
