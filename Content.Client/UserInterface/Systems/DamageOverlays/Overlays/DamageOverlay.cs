@@ -11,6 +11,10 @@ namespace Content.Client.UserInterface.Systems.DamageOverlays.Overlays;
 public sealed class DamageOverlay : Overlay
 {
     private static readonly ProtoId<ShaderPrototype> CircleMaskShader = "GradientCircleMask";
+    // Inferus - shader that replaces the black/white crit overlays
+    private static readonly ProtoId<ShaderPrototype> InferusCritDistortionShader = "InferusCritDistortion";
+    // Inferus - shader that replaces the red pulsing pain overlay
+    private static readonly ProtoId<ShaderPrototype> InferusPainStaticShader = "InferusPainStatic";
 
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
@@ -19,9 +23,15 @@ public sealed class DamageOverlay : Overlay
 
     public override OverlaySpace Space => OverlaySpace.WorldSpace;
 
-    private readonly ShaderInstance _critShader;
+    // Inferus - the crit distortion shader samples what has already been rendered
+    public override bool RequestScreenTexture => true;
+
+    // Inferus - the separate white crit circle-mask shader was removed, the crit distortion shader replaces it
     private readonly ShaderInstance _oxygenShader;
-    private readonly ShaderInstance _bruteShader;
+    // Inferus - the red circle-mask pain shader was removed, the pain static shader replaces it
+    private readonly ShaderInstance _painStaticShader;
+    // Inferus - crit distortion shader instance
+    private readonly ShaderInstance _critDistortionShader;
 
     public MobState State = MobState.Alive;
 
@@ -53,8 +63,12 @@ public sealed class DamageOverlay : Overlay
         // TODO: Replace
         IoCManager.InjectDependencies(this);
         _oxygenShader = _prototypeManager.Index(CircleMaskShader).InstanceUnique();
-        _critShader = _prototypeManager.Index(CircleMaskShader).InstanceUnique();
-        _bruteShader = _prototypeManager.Index(CircleMaskShader).InstanceUnique();
+        // Inferus - removed the crit circle-mask shader instance, replaced by the crit distortion shader
+        // Inferus - removed the brute circle-mask shader instance, replaced by the pain static shader
+        // Inferus - load the pain static shader
+        _painStaticShader = _prototypeManager.Index(InferusPainStaticShader).InstanceUnique();
+        // Inferus - load the crit distortion shader
+        _critDistortionShader = _prototypeManager.Index(InferusCritDistortionShader).InstanceUnique();
     }
 
     protected override void Draw(in OverlayDrawArgs args)
@@ -65,12 +79,19 @@ public sealed class DamageOverlay : Overlay
         if (args.Viewport.Eye != eyeComp.Eye)
             return;
 
+        // Inferus - scale the vision circles with the eye zoom so zooming out
+        // can't be used to see more than the vignettes allow
+        var zoom = eyeComp.Zoom.X;
+
         /*
          * Here's the rundown:
          * 1. There's lerping for each level so the transitions are smooth.
          * 2. There's 3 overlays, 1 for brute damage, 1 for oxygen damage (that also doubles as a crit overlay),
          * and a white one during crit that closes in as you progress towards death. When you die it slowly disappears.
          * The crit overlay also occasionally reduces its alpha as a "blink"
+         * Inferus - the white crit overlay was replaced by a full-screen distortion shader
+         * that tears/desaturates/darkens the world the deeper into crit you are, and the
+         * red pain overlay was replaced by a staticky red vignette shader.
          */
 
         var viewport = args.WorldAABB;
@@ -143,27 +164,14 @@ public sealed class DamageOverlay : Overlay
         // TODO: Lerping
         if (level > 0f && _oldCritLevel <= 0f)
         {
-            var pulseRate = 3f;
-            var adjustedTime = time * pulseRate;
-            float outerMaxLevel = 2.0f * distance;
-            float outerMinLevel = 0.8f * distance;
-            float innerMaxLevel = 0.6f * distance;
-            float innerMinLevel = 0.2f * distance;
+            // Inferus
+            if (ScreenTexture == null)
+                return;
 
-            var outerRadius = outerMaxLevel - level * (outerMaxLevel - outerMinLevel);
-            var innerRadius = innerMaxLevel - level * (innerMaxLevel - innerMinLevel);
-
-            var pulse = MathF.Max(0f, MathF.Sin(adjustedTime));
-
-            _bruteShader.SetParameter("time", pulse);
-            _bruteShader.SetParameter("color", new Vector3(1f, 0f, 0f));
-            _bruteShader.SetParameter("darknessAlphaOuter", 0.8f);
-
-            _bruteShader.SetParameter("outerCircleRadius", outerRadius);
-            _bruteShader.SetParameter("outerCircleMaxRadius", outerRadius + 0.2f * distance);
-            _bruteShader.SetParameter("innerCircleRadius", innerRadius);
-            _bruteShader.SetParameter("innerCircleMaxRadius", innerRadius + 0.02f * distance);
-            handle.UseShader(_bruteShader);
+            _painStaticShader.SetParameter("painLevel", level);
+            _painStaticShader.SetParameter("zoom", zoom);
+            _painStaticShader.SetParameter("SCREEN_TEXTURE", ScreenTexture);
+            handle.UseShader(_painStaticShader);
             handle.DrawRect(viewport, Color.White);
         }
         else
@@ -171,7 +179,8 @@ public sealed class DamageOverlay : Overlay
             _oldPainLevel = PainLevel;
         }
 
-        level = State != MobState.Critical ? _oldOxygenLevel : 1f;
+        // Inferus
+        level = State != MobState.Critical ? _oldOxygenLevel : 0f;
 
         if (level > 0f)
         {
@@ -221,25 +230,14 @@ public sealed class DamageOverlay : Overlay
 
         if (level > 0f)
         {
-            float outerMaxLevel = 2.0f * distance;
-            float outerMinLevel = 1.0f * distance;
-            float innerMaxLevel = 0.6f * distance;
-            float innerMinLevel = 0.02f * distance;
+            // Inferus
+            if (ScreenTexture == null)
+                return;
 
-            var outerRadius = outerMaxLevel - level * (outerMaxLevel - outerMinLevel);
-            var innerRadius = innerMaxLevel - level * (innerMaxLevel - innerMinLevel);
-
-            var pulse = MathF.Max(0f, MathF.Sin(time));
-
-            // If in crit then just fix it; also pulse it very occasionally so they can see more.
-            _critShader.SetParameter("time", pulse);
-            _critShader.SetParameter("color", new Vector3(1f, 1f, 1f));
-            _critShader.SetParameter("darknessAlphaOuter", 1.0f);
-            _critShader.SetParameter("innerCircleRadius", innerRadius);
-            _critShader.SetParameter("innerCircleMaxRadius", innerRadius + 0.005f * distance);
-            _critShader.SetParameter("outerCircleRadius", outerRadius);
-            _critShader.SetParameter("outerCircleMaxRadius", outerRadius + 0.2f * distance);
-            handle.UseShader(_critShader);
+            _critDistortionShader.SetParameter("critLevel", level);
+            _critDistortionShader.SetParameter("zoom", zoom);
+            _critDistortionShader.SetParameter("SCREEN_TEXTURE", ScreenTexture);
+            handle.UseShader(_critDistortionShader);
             handle.DrawRect(viewport, Color.White);
         }
 
