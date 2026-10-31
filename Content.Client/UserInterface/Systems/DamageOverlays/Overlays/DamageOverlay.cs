@@ -11,9 +11,8 @@ namespace Content.Client.UserInterface.Systems.DamageOverlays.Overlays;
 public sealed class DamageOverlay : Overlay
 {
     private static readonly ProtoId<ShaderPrototype> CircleMaskShader = "GradientCircleMask";
-    // Inferus - shader that replaces the black/white crit overlays
+    // Inferus
     private static readonly ProtoId<ShaderPrototype> InferusCritDistortionShader = "InferusCritDistortion";
-    // Inferus - shader that replaces the red pulsing pain overlay
     private static readonly ProtoId<ShaderPrototype> InferusPainStaticShader = "InferusPainStatic";
 
     [Dependency] private readonly IGameTiming _timing = default!;
@@ -23,14 +22,11 @@ public sealed class DamageOverlay : Overlay
 
     public override OverlaySpace Space => OverlaySpace.WorldSpace;
 
-    // Inferus - the crit distortion shader samples what has already been rendered
+    // Inferus
     public override bool RequestScreenTexture => true;
 
-    // Inferus - the separate white crit circle-mask shader was removed, the crit distortion shader replaces it
     private readonly ShaderInstance _oxygenShader;
-    // Inferus - the red circle-mask pain shader was removed, the pain static shader replaces it
     private readonly ShaderInstance _painStaticShader;
-    // Inferus - crit distortion shader instance
     private readonly ShaderInstance _critDistortionShader;
 
     public MobState State = MobState.Alive;
@@ -63,11 +59,8 @@ public sealed class DamageOverlay : Overlay
         // TODO: Replace
         IoCManager.InjectDependencies(this);
         _oxygenShader = _prototypeManager.Index(CircleMaskShader).InstanceUnique();
-        // Inferus - removed the crit circle-mask shader instance, replaced by the crit distortion shader
-        // Inferus - removed the brute circle-mask shader instance, replaced by the pain static shader
-        // Inferus - load the pain static shader
+        // Inferus
         _painStaticShader = _prototypeManager.Index(InferusPainStaticShader).InstanceUnique();
-        // Inferus - load the crit distortion shader
         _critDistortionShader = _prototypeManager.Index(InferusCritDistortionShader).InstanceUnique();
     }
 
@@ -79,8 +72,7 @@ public sealed class DamageOverlay : Overlay
         if (args.Viewport.Eye != eyeComp.Eye)
             return;
 
-        // Inferus - scale the vision circles with the eye zoom so zooming out
-        // can't be used to see more than the vignettes allow
+        // Inferus
         var zoom = eyeComp.Zoom.X;
 
         /*
@@ -89,7 +81,7 @@ public sealed class DamageOverlay : Overlay
          * 2. There's 3 overlays, 1 for brute damage, 1 for oxygen damage (that also doubles as a crit overlay),
          * and a white one during crit that closes in as you progress towards death. When you die it slowly disappears.
          * The crit overlay also occasionally reduces its alpha as a "blink"
-         * Inferus - the white crit overlay was replaced by a full-screen distortion shader
+         * Inferus: the white crit overlay was replaced by a full-screen distortion shader
          * that tears/desaturates/darkens the world the deeper into crit you are, and the
          * red pain overlay was replaced by a staticky red vignette shader.
          */
