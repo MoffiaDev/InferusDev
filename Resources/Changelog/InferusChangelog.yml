@@ -83,3 +83,16 @@ Entries:
         explosion visuals.
   id: 9
   time: '2026-10-29T20:08:47.0000000+00:00'
+- author: Tarazicon
+  changes:
+    - type: Add
+      message: >-
+        The Supermatter Crystal is now shipping to the Inferus sector! Expect to
+        see it come pre-installed in some stations.
+    - type: Add
+      message: >-
+        The supermatter control console can be printed from the engineering
+        techfab and has a UI to help you understand how the SM is interacting
+        with its environment.
+  id: 10
+  time: '2026-10-31T02:12:07.0000000+00:00'
