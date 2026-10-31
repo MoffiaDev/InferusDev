@@ -2,6 +2,7 @@ using Content.Server._DV.Psionics.Systems;
 using Content.Server._DV.StationEvents.Components;
 using Content.Server.Chat.Systems;
 using Content.Server.StationEvents.Events;
+using Content.Shared._Common.Consent; // Inferus - consent
 using Content.Shared._DV.Psionics.Components;
 using Content.Shared._DV.Psionics.Systems.PsionicPowers;
 using Content.Shared.GameTicking.Components;
@@ -10,6 +11,7 @@ using Content.Shared.Mobs.Systems;
 using Robust.Server.Audio;
 using Robust.Shared.Audio;
 using Robust.Shared.Player;
+using Robust.Shared.Prototypes; // Inferus - consent
 using Robust.Shared.Random;
 
 namespace Content.Server._DV.StationEvents.GameRules;
@@ -25,6 +27,9 @@ internal sealed class MinorMassMindSwapRule : StationEventSystem<MinorMassMindSw
     [Dependency] private readonly SharedMindSwapPowerSystem _mindSwap = default!;
     [Dependency] private readonly MobStateSystem _mobstateSystem = default!;
     [Dependency] private readonly PsionicSystem _psionic = default!;
+    [Dependency] private readonly SharedConsentSystem _consent = default!; // Inferus - consent
+
+    private static readonly ProtoId<ConsentTogglePrototype> MindswapConsent = "MassMindswap"; // Inferus - consent
 
     private TimeSpan _warningSoundLength;
     private ResolvedSoundSpecifier _resolvedWarningSound = string.Empty;
@@ -81,6 +86,11 @@ internal sealed class MinorMassMindSwapRule : StationEventSystem<MinorMassMindSw
         var query = EntityQueryEnumerator<PotentialPsionicComponent, MobStateComponent>();
         while (query.MoveNext(out var psion, out _, out var mobState))
         {
+            // Inferus Section - consent
+            if (!_consent.HasConsent(psion, MindswapConsent))
+                continue;
+            // Inferus Section End
+
             if (_mobstateSystem.IsAlive(psion, mobState) && HasComp<ActorComponent>(psion) && _psionic.CanBeTargeted(psion))
                 // Only a list of Players
                 psionicActors.Add(psion);
