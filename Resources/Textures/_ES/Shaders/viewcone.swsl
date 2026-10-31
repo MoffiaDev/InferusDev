@@ -12,6 +12,8 @@ uniform highp float ConeIgnoreFeather;
 
 uniform highp float ViewAngle;
 
+uniform highp vec2 Origin; // Inferus
+
 uniform highp float GrainMult;
 const highp float grainBase = 0.6;
 
@@ -27,12 +29,15 @@ void fragment(){
 
     highp float mask = 1.0;
 
+    // Inferus
+    highp vec2 shiftedCoord = FRAGCOORD.xy + ((pixelSize * 0.5) - Origin);
+
     // IgnoreRadius pass
-    highp float radial = zCircleGradient(pixelSize, FRAGCOORD.xy, 1.0, (ConeIgnoreFeather) / 1.0, (ConeIgnoreRadius / pow(ConeIgnoreFeather, 0.85)) / Zoom, 1.0);
+    highp float radial = zCircleGradient(pixelSize, shiftedCoord, 1.0, (ConeIgnoreFeather) / 1.0, (ConeIgnoreRadius / pow(ConeIgnoreFeather, 0.85)) / Zoom, 1.0); // Inferus - shiftedCoord
     mask -= radial;
 
-    // Setup for cone pass - this makes a gradient based around the angle to the center of the screen
-    highp vec2 delta = FRAGCOORD.xy - (pixelSize * 0.5);
+    // Setup for cone pass - this makes a gradient based around the angle to the character
+    highp vec2 delta = FRAGCOORD.xy - Origin; // Inferus - was the center of the screen
     highp float deltaAngle = atan(delta.x, delta.y);
     deltaAngle += ViewAngle;
     deltaAngle = mod(deltaAngle, radians(360.0));

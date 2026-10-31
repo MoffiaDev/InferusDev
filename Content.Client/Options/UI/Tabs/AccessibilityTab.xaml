@@ -12,6 +12,7 @@
                 <CheckBox Name="DisableViewconeGrainCheckBox" Text="{Loc 'ui-options-disable-viewcone-grain'}" />
                 <ui:OptionSlider Name="ViewconeOcclusionOpacitySlider" Title="{Loc 'ui-options-viewcone-occlusion-opacity'}" />
                 <!-- END Inferus -->
+                <CheckBox Name="LegacyDamageOverlaysCheckBox" Text="{Loc 'ui-options-legacy-damage-overlays'}" ToolTip="{Loc 'ui-options-legacy-damage-overlays-tooltip'}" /> <!-- Inferus - toggle for the old pain/crit overlays -->
                 <CheckBox Name="EnableColorNameCheckBox" Text="{Loc 'ui-options-enable-color-name'}" />
                 <CheckBox Name="ColorblindFriendlyCheckBox" Text="{Loc 'ui-options-colorblind-friendly'}" />
                 <ui:OptionSlider Name="ScreenShakeIntensitySlider" Title="{Loc 'ui-options-screen-shake-intensity'}" />
