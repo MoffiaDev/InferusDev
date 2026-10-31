@@ -114,3 +114,13 @@ Entries:
         using a sniper rifle or any other view-extending items.
   id: 12
   time: '2026-10-31T16:29:01.0000000+00:00'
+- author: Pachat-Kas
+  changes:
+    - type: Add
+      message: >-
+        Ported the consent menu, with preferences others can examine and a
+        paradox anomaly opt-out.
+    - type: Tweak
+      message: Mass mindswaps now only affect players who opt in.
+  id: 13
+  time: '2026-10-31T16:34:12.0000000+00:00'
