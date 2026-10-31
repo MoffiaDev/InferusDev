@@ -96,3 +96,9 @@ Entries:
         with its environment.
   id: 10
   time: '2026-10-31T02:12:07.0000000+00:00'
+- author: Tarazicon
+  changes:
+    - type: Add
+      message: Vending machines now have a more immersive UI. Have fun beeping.
+  id: 11
+  time: '2026-10-31T05:38:49.0000000+00:00'
