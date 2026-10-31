@@ -46,6 +46,8 @@
     tilesPerEntityStdDev: 4
     entities:
     - id: RandomSpawner
+    componentBlacklist: # Inferus - let's stop spawning trash near the supermatter so rounds arent 10 minutes long
+    - type: Supermatter
 
 - type: entity
   id: BasicDecalDirtVariationPass

@@ -37,6 +37,7 @@
     CeClipboardStealObjective: 1
     MedicalFolderStealObjective: 0.75
     # End DeltaV Additions
+    StealSupermatterSliverObjective: 0.5 # Inferus
 
 - type: weightedRandom
   id: TraitorObjectiveGroupKill
