@@ -16,9 +16,12 @@ const highp float WanderAmount = 0.075;
 const highp float MaxSpikeDepth = 0.2;
 const highp float EdgeRoughness = 0.05;
 
-const highp float DistortStart = 0.80;
+const highp float DistortStart = 0.90;
 const highp float DistortEnd = 0.95;
 const highp float MaxViewDistort = 0.0015;
+
+const highp float PainMaxOpacity = 0.35;
+const highp float PainFadeEnd = 0.25;
 
 highp float hash12(highp vec2 p) {
     highp vec3 p3 = fract(vec3(p.x, p.y, p.x) * 0.1031);
@@ -66,6 +69,8 @@ void fragment() {
     edge += (grain - 0.5) * EdgeRoughness;
 
     highp float redMask = smoothstep(edge, edge + PainEdgeSoftness, dist);
+    redMask *= PainMaxOpacity;
+    redMask *= smoothstep(0.0, PainFadeEnd, painLevel);
 
     highp vec3 redVignette = mix(vec3(0.34, 0.01, 0.01), vec3(0.9, 0.15, 0.12), grain * StaticStrength);
     color.rgb = mix(color.rgb, redVignette, redMask);
