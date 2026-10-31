@@ -4,10 +4,11 @@ using Content.Shared.VendingMachines;
 using Robust.Client.UserInterface;
 using Robust.Shared.Input;
 using System.Linq;
+using Content.Client._Funkystation.VendingMachines; // Inferus - funky keypad UI port
 
 namespace Content.Client.VendingMachines
 {
-    public sealed class VendingMachineBoundUserInterface : BoundUserInterface
+    public sealed class VendingMachineBoundUserInterface : BoundUserInterface, IVendingMachineBoundUi // Inferus - funky keypad UI port
     {
         [ViewVariables]
         private VendingMachineMenu? _menu;
